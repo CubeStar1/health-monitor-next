@@ -1,0 +1,70 @@
+\section{Implementation}
+
+\subsection{System Architecture}
+The HealthHub platform implements a modern microservices architecture [3]:
+
+\begin{itemize}
+\item \textbf{Frontend Layer:}
+    \begin{itemize}
+    \item Next.js 14 application with App Router
+    \item Server-side rendering for performance
+    \item Real-time data updates via WebSocket
+    \item Responsive design with Tailwind CSS
+    \end{itemize}
+
+\item \textbf{Backend Services:}
+    \begin{itemize}
+    \item FastAPI service for RAG pipeline
+    \item Supabase for real-time data and authentication
+    \item PostgreSQL with pgvector extension
+    \item LangChain for AI orchestration
+    \end{itemize}
+\end{itemize}
+
+\subsection{RAG Pipeline Architecture}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figures/rag-architecture}
+\caption{RAG Pipeline Implementation for Medical Records}
+\label{fig:rag-architecture}
+\end{figure}
+
+The RAG pipeline processes medical records through a series of steps identified in recent literature [10, 7]:
+\begin{itemize}
+\item Document chunking and preprocessing
+\item Cohere embedding generation
+\item Vector storage in Supabase
+\item Context-aware query processing
+\end{itemize}
+
+\subsection{SQL Agent Architecture}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figures/sql-agent-flow}
+\caption{SQL Agent Query Processing Flow}
+\label{fig:sql-agent-flow}
+\end{figure}
+
+Building on recent advances in natural language to SQL conversion [14, 15], the SQL agent handles sensor data through:
+\begin{itemize}
+\item Natural language query parsing
+\item Automated SQL query generation
+\item Real-time data retrieval
+\item Response formatting and visualization
+\end{itemize}
+
+\subsection{Integration Layer}
+The system integrates these components through:
+\begin{itemize}
+\item Unified API gateway
+\item Shared authentication system
+\item Common data access layer
+\item Centralized error handling
+\end{itemize}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figures/system-integration}
+\caption{System Integration Architecture}
+\label{fig:system-integration}
+\end{figure} 
