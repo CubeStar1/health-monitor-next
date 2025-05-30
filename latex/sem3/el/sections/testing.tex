@@ -1,0 +1,99 @@
+\section{Testing Methodology}
+\subsection{Integration Testing}
+The integration testing focused on validating the RAG pipeline and its components:
+
+\begin{enumerate}
+    \item \textbf{API Integration Tests}
+    \begin{itemize}
+        \item RAG query endpoint functionality
+        \item Cohere embedding generation
+        \item Supabase vector search integration
+        \item Error handling and response formats
+    \end{itemize}
+
+    \item \textbf{Component Integration}
+    \begin{itemize}
+        \item Embedding service communication
+        \item Vector database queries
+        \item Context retrieval accuracy
+        \item Response formatting
+    \end{itemize}
+\end{enumerate}
+
+\section{Backend Unit Testing}
+\subsection{FastAPI Backend Tests}
+Implementation of the RAG query endpoint tests:
+
+\begin{lstlisting}[language=Python, caption=RAG Query Endpoint Tests]
+# test_rag_query.py
+def test_rag_query_endpoint():
+    request = RAGQueryRequest(query="test medical query")
+    response = client.post("/rag-query", json=request.dict())
+    
+    assert response.status_code == 200
+    assert "query" in response.json()
+    assert "context" in response.json()
+    assert "response" in response.json()
+
+def test_embedding_generation():
+    text = "test query"
+    embedding = generate_embedding(text)
+    assert len(embedding) == 1024  # Cohere embedding dimension
+
+def test_vector_search():
+    test_embedding = generate_embedding("test query")
+    results = query_embeddings(test_embedding)
+    assert len(results) <= 5  # Max match count
+    assert all("text_content" in result for result in results)
+\end{lstlisting}
+
+\section{Test Results}
+
+\subsection{Integration Test Results}
+Key findings from testing the RAG pipeline:
+
+\begin{itemize}
+    \item Successful integration with Cohere embedding service
+    \item Accurate vector similarity search in Supabase
+    \item Proper context retrieval and response generation
+    \item Robust error handling for API failures
+\end{itemize}
+
+\section{Testing Challenges}
+
+\subsection{Performance Optimization}
+Initial implementation challenges and solutions:
+
+\begin{enumerate}
+    \item \textbf{Initial Challenges}
+    \begin{itemize}
+        \item Synchronous processing caused high latency
+        \item One-by-one document processing created bottlenecks
+        \item High error rates during peak loads
+        \item Inconsistent response times
+    \end{itemize}
+
+    \item \textbf{Optimizations Implemented}
+    \begin{itemize}
+        \item Implemented asynchronous queue system for document processing
+        \item Added batch processing for multiple documents
+        \item Improved error handling with retry mechanisms
+        \item Optimized vector search queries
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Results After Optimization}
+The improvements led to significant performance gains:
+
+\begin{itemize}
+    \item Reduced processing latency through async operations
+    \item Better resource utilization with queue system
+    \item More consistent response times
+    \item Improved error handling and recovery
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/rag_pipeline.png}
+    \caption{RAG Pipeline Architecture and Test Points}
+\end{figure} 

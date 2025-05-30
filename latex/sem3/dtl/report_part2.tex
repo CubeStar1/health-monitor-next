@@ -1,0 +1,299 @@
+\pagestyle{fancy}
+\thispagestyle{fancy}
+\chapter{Empathy}
+\section{Introduction to Empathy}
+Our design process began with a deep dive into understanding the challenges faced by individuals in managing their personal health information. Through extensive user research, we identified several key pain points:
+
+\begin{itemize}
+    \item Fragmentation of health records across multiple platforms and providers
+    \item Difficulty in interpreting medical data and test results
+    \item Challenge of tracking real-time health metrics
+    \item Need for personalized health insights
+\end{itemize}
+
+\section{Customer Persona and Environment}
+Based on our research, we developed primary user personas representing our target users:
+
+\begin{itemize}
+    \item Health-conscious individuals managing chronic conditions
+    \item Active adults tracking fitness and nutrition goals
+    \item Caregivers managing health information for family members
+    \item Healthcare providers seeking efficient patient data access
+\end{itemize}
+
+\section{Customer Journey Map}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/customer_journey_map.png}
+    \caption{Figure 1.1: Customer Journey Map}
+\end{figure}
+
+Key journey stages identified:
+\begin{enumerate}
+    \item Initial Health Data Collection
+    \item Record Organization and Storage
+    \item Data Analysis and Interpretation
+    \item Health Insight Generation
+    \item Action Planning and Implementation
+\end{enumerate}
+
+\section{Customer Empathy Maps}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/patient_empathy_map.png}
+    \caption{Figure 1.2: Patient Empathy Map Visualization}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/developer_empathy_map.png}
+    \caption{Figure 1.3: Healthcare Developer Empathy Map Visualization}
+\end{figure}
+
+\subsection{Says}
+\begin{itemize}
+    \item "I need all my medical documents in one place"
+    \item "Which portal has my latest scan results?"
+    \item "I wish I could just search through all my reports at once"
+\end{itemize}
+
+\subsection{Thinks}
+\begin{itemize}
+    \item Managing all these documents is overwhelming
+    \item What if I miss something important?
+    \item There must be a better way to organize all this
+\end{itemize}
+
+\subsection{Does}
+\begin{itemize}
+    \item Takes photos of every medical document
+    \item Maintains multiple folders for different tests
+    \item Manually enters test results in spreadsheets
+\end{itemize}
+
+\subsection{Feels}
+\begin{itemize}
+    \item Frustrated when can't find specific test results
+    \item Anxious about keeping track of everything
+    \item Overwhelmed by different portals and systems
+\end{itemize}
+
+\section{Tools used for Empathy}
+\subsection{Customer Survey and Analysis}
+We conducted a comprehensive survey with 120 respondents to understand user needs and behaviors regarding health monitoring and data management.
+
+\begin{minipage}{0.5\textwidth}
+\textbf{Demographics}\\
+Our survey reached a diverse group of participants:
+\begin{itemize}
+    \item 101 respondents aged 18-25
+    \item 103 students
+    \item 12 caregivers/family members
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/demographics_pie.png}
+    \caption{Figure 1.4: Distribution of Survey Respondents by Role}
+\end{figure}
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+\textbf{Health Monitoring Habits}\\
+The frequency of health monitoring varied among respondents:
+\begin{itemize}
+    \item 59 people - Only during doctor visits
+    \item 25 people - Weekly monitoring
+    \item 19 people - Monthly monitoring
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/monitoring_frequency.png}
+    \caption{Figure 1.5: Health Monitoring Frequency Distribution}
+\end{figure}
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+\textbf{Health Records Management}\\
+Current methods of health record storage:
+\begin{itemize}
+    \item 45\% use paper records
+    \item 32\% use health apps (Apple Health, MyChart)
+    \item 23\% use other methods
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/records_storage.png}
+    \caption{Figure 1.6: Health Records Storage Methods}
+\end{figure}
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+\textbf{AI Adoption and Trust}\\
+Key findings regarding AI usage:
+\begin{itemize}
+    \item 43\% likely to use AI-assisted health platforms
+    \item 15\% very confident in AI health predictions
+    \item Strong preference for on-device AI models
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/ai_confidence.png}
+    \caption{Figure 1.7: User Confidence in AI Health Predictions}
+\end{figure}
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+\textbf{Feature Preferences}\\
+Most requested features from the survey:
+\begin{itemize}
+    \item Real-time vital sign monitoring
+    \item Heart rate tracking
+    \item Temperature monitoring
+    \item SpO2 tracking
+\end{itemize}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/feature_preferences.png}
+    \caption{Figure 1.8: Most Requested Platform Features}
+\end{figure}
+\end{minipage}
+
+\subsection{Key Survey Insights}
+Analysis of the survey data revealed several important trends:
+\begin{itemize}
+    \item Strong interest in real-time health monitoring
+    \item Privacy concerns influencing technology preferences
+    \item Need for better health record organization
+    \item Cautious but positive attitude toward AI assistance
+\end{itemize}
+
+\subsection{Stakeholder Interviews}
+Our research involved comprehensive interviews with various stakeholders to understand diverse perspectives and requirements:
+
+\begin{enumerate}
+    \item \textbf{Interview Methodology}
+    \begin{itemize}
+        \item Physical interviews with key stakeholders
+        \item Video/audio recordings and transcripts
+        \item Structured questionnaires for different groups
+    \end{itemize}
+
+    \item \textbf{Target Groups}
+    \begin{itemize}
+        \item Patients and general public
+        \item Healthcare providers
+        \item Developers
+        \item Students
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Interview Questions and Insights}
+We tailored our questions for each stakeholder group:
+
+\begin{enumerate}
+    \item \textbf{General Public}
+    \begin{itemize}
+        \item Frequency of health metric monitoring
+        \item Current health record management methods
+        \item Interest in AI-assisted health insights
+        \item Preferred platform features
+    \end{itemize}
+
+    \item \textbf{Healthcare Providers}
+    \begin{itemize}
+        \item AI assistance in clinical decision support
+        \item Data sharing and HIPAA compliance
+        \item Medical terminology integration
+        \item Audit trail requirements
+    \end{itemize}
+
+    \item \textbf{Developers}
+    \begin{itemize}
+        \item Authentication and authorization protocols
+        \item Data encryption standards
+        \item IoT sensor data processing architecture
+        \item Natural language processing implementation
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Student Personas}
+Through our interviews, we developed detailed personas representing different student user types:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/interview_sachit.png}
+    \caption{Figure 1.9: Interview with Sachit - Biotech Student}
+\end{figure}
+
+\textbf{Persona 1: Sachit (Biotech Student)}
+\begin{itemize}
+    \item Values natural language querying
+    \item Concerned about privacy
+    \item Interested in basic health metrics
+    \item Prefers simple visualizations
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/interview_2.png}
+    \caption{Interview with Rajat - CS Student}
+\end{figure}
+
+\textbf{Persona 2: Rajat (CS Student, RV College)}
+\begin{itemize}
+    \item Appreciates English language querying
+    \item Values personalized health insights
+    \item Positive about health trend visualization
+    \item Emphasizes anonymous data handling
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/interview_3.png}
+    \caption{Interview with Priyansh - MS Ramaiah Institute Student}
+\end{figure}
+
+\textbf{Persona 3: Priyansh (MS Ramaiah Institute)}
+\begin{itemize}
+    \item Prefers multilingual support (Hindi)
+    \item Has specific health monitoring needs (IBS)
+    \item Strong privacy concerns
+    \item Interested in doctor consultation features
+\end{itemize}
+
+\subsection{Key Interview Findings}
+Our research revealed several critical themes:
+
+\begin{enumerate}
+    \item \textbf{Privacy and Security}
+    \begin{itemize}
+        \item Strong emphasis on data protection
+        \item Need for transparent data handling
+        \item Preference for anonymous analytics
+    \end{itemize}
+
+    \item \textbf{User Interface Preferences}
+    \begin{itemize}
+        \item Natural language querying
+        \item Multilingual support
+        \item Simple, intuitive visualizations
+    \end{itemize}
+
+    \item \textbf{Health Monitoring Features}
+    \begin{itemize}
+        \item Real-time vital sign tracking
+        \item Personalized health insights
+        \item Integration with healthcare providers
+    \end{itemize}
+\end{enumerate} 

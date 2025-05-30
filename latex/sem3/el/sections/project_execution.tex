@@ -1,0 +1,101 @@
+\section{Project Execution}
+
+\subsection{Planning and Design}
+The initial planning phase focused on establishing the core architecture and design patterns:
+
+\begin{enumerate}
+    \item \textbf{System Architecture Design}
+    \begin{itemize}
+        \item Microservices-based architecture for scalability
+        \item Event-driven design for real-time updates
+        \item Layered security approach for data protection
+        \item Modular component structure for maintainability
+    \end{itemize}
+
+    \item \textbf{Database Schema Design}
+    \begin{itemize}
+        \item PostgreSQL with pgvector extension for embeddings
+        \item Structured tables for user data and health records
+        \item Time-series data storage for sensor readings
+        \item Efficient indexing for quick retrieval
+    \end{itemize}
+
+    \item \textbf{API Design}
+    \begin{itemize}
+        \item RESTful endpoints for CRUD operations
+        \item WebSocket connections for real-time data
+        \item Authentication middleware integration
+        \item Rate limiting and request validation
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Implementation}
+The implementation phase was executed in several stages:
+
+\begin{enumerate}
+    \item \textbf{Frontend Development}
+    \begin{itemize}
+        \item Implementation of responsive dashboard layouts
+        \item Creation of reusable UI components
+        \item Integration of data visualization tools
+        \item Development of form validation logic
+    \end{itemize}
+
+    \item \textbf{Backend Services}
+    \begin{itemize}
+        \item Setup of FastAPI server infrastructure
+        \item Implementation of database models and migrations
+        \item Development of authentication services
+        \item Creation of data processing pipelines
+    \end{itemize}
+
+    \item \textbf{AI Integration}
+    \begin{itemize}
+        \item Implementation of RAG pipeline using LangChain
+        \item Integration of OpenAI's GPT models
+        \item Development of context management system
+        \item Creation of health insights generation logic
+    \end{itemize}
+
+    \item \textbf{Sensor Integration}
+    \begin{itemize}
+        \item Arduino sensor programming and calibration
+        \item Implementation of data collection protocols
+        \item Development of real-time processing logic
+        \item Creation of alert monitoring system
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/implementation_components.png}
+    \caption{Implementation Components and Integration}
+\end{figure}
+
+\subsection{Key Implementation Challenges}
+
+\begin{enumerate}
+    \item \textbf{Data Processing Optimization}
+    \begin{itemize}
+        \item Handling large volumes of health records
+        \item Optimizing embedding generation process
+        \item Managing real-time data streams
+        \item Implementing efficient caching strategies
+    \end{itemize}
+
+    \item \textbf{Security Implementation}
+    \begin{itemize}
+        \item Ensuring HIPAA compliance
+        \item Implementing end-to-end encryption
+        \item Managing secure data transmission
+        \item Handling user authentication securely
+    \end{itemize}
+
+    \item \textbf{Integration Challenges}
+    \begin{itemize}
+        \item Coordinating multiple service interactions
+        \item Managing API rate limits
+        \item Handling network latency issues
+        \item Ensuring data consistency across services
+    \end{itemize}
+\end{enumerate} 

@@ -1,0 +1,395 @@
+\section{System Design and Implementation}
+
+\subsection{Requirements Specification}
+
+\subsubsection{Functional Requirements}
+\begin{enumerate}
+    \item \textbf{Health Data Management}
+    \begin{itemize}
+        \item Upload and process medical records
+        \item Store and retrieve health data securely
+        \item Manage user health profiles
+    \end{itemize}
+
+    \item \textbf{AI-Powered Chat System}
+    \begin{itemize}
+        \item Process natural language queries
+        \item Provide context-aware responses
+        \item Access and utilize medical knowledge base
+    \end{itemize}
+
+    \item \textbf{Real-time Health Monitoring}
+    \begin{itemize}
+        \item Collect sensor data (heart rate, temperature, SpO2)
+        \item Display real-time health metrics
+        \item Store historical health data
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Non-Functional Requirements}
+\begin{enumerate}
+    \item \textbf{Performance}
+    \begin{itemize}
+        \item Response time < 2 seconds for queries
+        \item Real-time data updates < 100ms
+        \item Support multiple concurrent users
+    \end{itemize}
+
+    \item \textbf{Security}
+    \begin{itemize}
+        \item Secure data transmission
+        \item User authentication and authorization
+        \item HIPAA compliance considerations
+    \end{itemize}
+
+    \item \textbf{Reliability}
+    \begin{itemize}
+        \item System availability > 99.9%
+        \item Data backup and recovery
+        \item Error handling and logging
+    \end{itemize}
+\end{enumerate}
+
+\subsection{System Architecture}
+The system follows a modern microservices architecture:
+
+\begin{enumerate}
+    \item \textbf{Frontend Layer}
+    \begin{itemize}
+        \item Next.js 14 application with App Router
+        \item TypeScript for type safety
+        \item Tailwind CSS and shadcn/ui for UI components
+        \item TanStack Query for data fetching
+    \end{itemize}
+
+    \item \textbf{Backend Services}
+    \begin{itemize}
+        \item FastAPI service for RAG pipeline
+        \item Supabase for real-time data and authentication
+        \item PostgreSQL with pgvector for vector storage
+    \end{itemize}
+
+    \item \textbf{External Services}
+    \begin{itemize}
+        \item Cohere for embedding generation
+        \item Arduino IoT platform for sensor data
+    \end{itemize}
+\end{enumerate}
+
+\subsection{RAG Implementation}
+The RAG pipeline is implemented as follows:
+
+\begin{enumerate}
+    \item \textbf{Document Processing}
+    \begin{itemize}
+        \item Medical records are uploaded and processed
+        \item Text is extracted and chunked
+        \item Cohere generates embeddings
+        \item Vectors stored in Supabase pgvector
+    \end{itemize}
+
+    \item \textbf{Query Processing}
+    \begin{itemize}
+        \item User queries processed through Next.js API
+        \item FastAPI backend handles embedding generation
+        \item Vector similarity search retrieves context
+        \item Response generated using retrieved context
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Real-time Health Monitoring}
+The health monitoring system consists of:
+
+\begin{enumerate}
+    \item \textbf{Hardware Layer}
+    \begin{itemize}
+        \item Arduino UNO with ESP8266 WiFi module
+        \item Multiple health sensors (Heart rate, Temperature, SpO2)
+        \item Real-time data transmission setup
+    \end{itemize}
+
+    \item \textbf{Data Integration}
+    \begin{itemize}
+        \item Supabase real-time subscriptions
+        \item Live data visualization using Recharts
+        \item Automatic data synchronization
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/system_architecture.png}
+    \caption{Overall System Architecture}
+\end{figure}
+
+\subsection{Key Features Implementation}
+
+\subsubsection{Health Data Management}
+\begin{itemize}
+    \item Secure medical record storage
+    \item Real-time sensor data integration
+    \item Historical data analysis
+\end{itemize}
+
+\subsubsection{AI-Powered Chat}
+\begin{itemize}
+    \item Context-aware responses
+    \item Medical knowledge integration
+    \item Personalized health insights
+\end{itemize}
+
+\subsubsection{Real-time Monitoring}
+\begin{itemize}
+    \item Live health metrics visualization
+    \item Automated data collection
+    \item Trend analysis and reporting
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/feature_implementation.png}
+    \caption{Feature Implementation Overview}
+\end{figure}
+
+\subsection{Implementation Details}
+
+\subsubsection{Frontend Components}
+Example of a React component using TanStack Query:
+\begin{lstlisting}[language=typescript,
+                   basicstyle=\ttfamily\small,
+                   keywordstyle=\color{blue},
+                   stringstyle=\color{red},
+                   commentstyle=\color{green!60!black}]
+// app/health-records/page.tsx
+export default function HealthRecords() {
+    const { data, isLoading } = useQuery({
+        queryKey: ['health-records'],
+        queryFn: fetchHealthRecords,
+    })
+
+    if (isLoading) return <LoadingSpinner />
+
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {data?.map((record) => (
+                <RecordCard key={record.id} record={record} />
+            ))}
+        </div>
+    )
+}
+\end{lstlisting}
+
+\subsubsection{Backend Services}
+Example of FastAPI endpoint and vector search:
+\begin{lstlisting}[language=python,
+                   basicstyle=\ttfamily\small,
+                   keywordstyle=\color{blue},
+                   stringstyle=\color{red},
+                   commentstyle=\color{green!60!black}]
+@router.post("/rag-query")
+async def rag_query(request: RAGQueryRequest):
+    try:
+        query_embedding = generate_embedding(request.query)
+        search_results = query_embeddings(query_embedding)
+        context = "\n".join([
+            result['text_content'] 
+            for result in search_results
+        ])
+        return {
+            "query": request.query,
+            "context": context,
+            "response": f"Response based on context: {context}"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+\end{lstlisting}
+
+\subsubsection{Vector Search Implementation}
+PostgreSQL function for vector similarity search:
+\begin{lstlisting}[language=sql,
+                   basicstyle=\ttfamily\small,
+                   keywordstyle=\color{blue},
+                   stringstyle=\color{red},
+                   commentstyle=\color{green!60!black}]
+CREATE OR REPLACE FUNCTION match_documents (
+    query_embedding vector(1536),
+    match_threshold float,
+    match_count int
+)
+RETURNS TABLE (
+    id bigint,
+    content text,
+    similarity float
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        documents.id,
+        documents.content,
+        1 - (documents.embedding <=> query_embedding) AS similarity
+    FROM documents
+    WHERE 1 - (documents.embedding <=> query_embedding) > match_threshold
+    ORDER BY similarity DESC
+    LIMIT match_count;
+END;
+$$;
+\end{lstlisting}
+
+\subsubsection{RAG Pipeline Implementation}
+The RAG system is implemented through a Next.js API route that communicates with our FastAPI backend:
+
+\begin{lstlisting}[language=typescript,
+                   basicstyle=\ttfamily\small,
+                   keywordstyle=\color{blue},
+                   stringstyle=\color{red},
+                   commentstyle=\color{green!60!black}]
+// app/api/rag-query/route.ts
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const { query, llm_choice, match_count, user_id } = body;
+
+  try {
+    const response = await fetch(`${API_URL}/rag-query-v2`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        query, 
+        llm_choice, 
+        match_count, 
+        user_id
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to get response from RAG query');
+    }
+
+    const data = await response.json();
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'An error occurred during the RAG query' }, 
+      { status: 500 }
+    );
+  }
+}
+\end{lstlisting}
+
+\subsubsection{Real-time Health Monitoring}
+The health monitoring dashboard implements real-time data visualization using Supabase subscriptions:
+
+\begin{lstlisting}[language=typescript,
+                   basicstyle=\ttfamily\small,
+                   keywordstyle=\color{blue},
+                   stringstyle=\color{red},
+                   commentstyle=\color{green!60!black}]
+// app/(app)/health/monitor/page.tsx
+export default function HealthMonitor() {
+  const [healthData, setHealthData] = useState<HealthData[]>([]);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const supabase = createSupabaseBrowser();
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('sensor_data')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'sensor_data',
+        },
+        (payload) => {
+          if (isStreaming) {
+            setHealthData(prevData => {
+              const newData = [...prevData, payload.new as HealthData];
+              return newData.slice(-100); // Keep last 100 records
+            });
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, isStreaming]);
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <HealthChart 
+        data={healthData} 
+        dataKey="beat_avg" 
+        title="Heart Rate" 
+        unit="bpm" 
+        chartType={chartType} 
+      />
+      {/* Other charts */}
+    </div>
+  );
+}
+\end{lstlisting}
+
+\subsubsection{Health Data Visualization}
+Implementation of the chart component for health metrics:
+
+\begin{lstlisting}[language=typescript,
+                   basicstyle=\ttfamily\small,
+                   keywordstyle=\color{blue},
+                   stringstyle=\color{red},
+                   commentstyle=\color{green!60!black}]
+// app/(app)/health/monitor/components/HealthChart.tsx
+export function HealthChart({ 
+  data, 
+  dataKey, 
+  title, 
+  unit, 
+  chartType 
+}: HealthChartProps) {
+  const chartConfig = {
+    [dataKey]: {
+      label: title,
+      color: "hsl(var(--chart-1))",
+    },
+    // ... other configurations
+  } satisfies ChartConfig
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>
+          Real-time {title.toLowerCase()} measurements
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          {chartType === 'area' ? (
+            <AreaChart {...commonChartProps}>
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis
+                dataKey="created_at"
+                tickFormatter={formatXAxis}
+                interval="preserveStartEnd"
+                minTickGap={50}
+              />
+              <YAxis />
+              <ChartTooltip content={<CustomTooltip />} />
+              <Area
+                {...commonDataComponentProps}
+                fill={chartConfig[dataKey].color}
+              />
+            </AreaChart>
+          ) : (
+            // Line chart implementation
+          )}
+        </ChartContainer>
+      </CardContent>
+    </Card>
+  )
+}
+\end{lstlisting} 

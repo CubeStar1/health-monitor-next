@@ -1,0 +1,64 @@
+\section{Implementation}
+
+This section details the specific tools, libraries, and techniques we used to build HealthHub, bringing the system architecture and methodologies described earlier to life. Our focus was on creating a responsive user experience and a robust backend capable of handling complex AI-driven food safety and nutritional analysis, particularly leveraging FSSAI data.
+
+\subsection{Frontend Development}
+We built the HealthHub user interface to be intuitive and informative, allowing users to easily log food, interact with the AI assistant, and view personalized insights.
+\begin{itemize}
+    \item \textbf{Framework and UI:} We used Next.js 14 with its App Router for the frontend, along with React to create reusable UI components. Tailwind CSS was chosen for styling, enabling us to quickly build a modern and responsive design.
+    \item \textbf{User Interaction:} The interface supports simple text-based food logging. User queries for the AI assistant (regarding FSSAI guidelines, food safety, or nutrition) can be inputted via text, and the system is designed to integrate future voice and video interaction capabilities. Results, alerts, and nutritional summaries are displayed clearly.
+    \item \textbf{Real-time Updates:} WebSocket communication is planned for features like instant notifications for food safety alerts or real-time chat interactions with the AI assistant.
+\end{itemize}
+
+\subsection{Backend Development}
+The backend is the engine of HealthHub, managing data, user authentication, and orchestrating AI tasks.
+\begin{itemize}
+    \item \textbf{API and Core Logic:} We developed the primary backend services using Node.js and Express.js. These services handle user requests from the frontend via a RESTful API gateway, manage business logic, and interface with the database and AI components.
+    \item \textbf{Database and Authentication:} Supabase serves a dual role. We use its PostgreSQL database for storing user profiles, daily food logs, nutritional information, and sensor data. Supabase Authentication is employed for secure user sign-up, login, and session management.
+    \item \textbf{Deployment Environment:} While the methodology section outlines the AWS-based scalable infrastructure, the core backend logic is designed to be containerized for such deployment.
+\end{itemize}
+
+\subsection{AI Core: FSSAI-Aware RAG and SQL Agent}
+Our AI core, built with FastAPI for efficient serving, is central to providing personalized food safety and nutritional advice.
+
+\subsubsection{RAG Pipeline for Food Safety and FSSAI Data}
+This pipeline helps users get answers to their questions about food by checking against reliable sources, including FSSAI information.
+\begin{itemize}
+    \item \textbf{Orchestration and LLMs:} We use LangChain to manage the RAG pipeline. It integrates with Large Language Models (LLMs) such as OpenAI's GPT-3.5/4 or comparable models like Google Gemini, depending on availability and specific task requirements.
+    \item \textbf{Knowledge Base Creation:} Information from FSSAI documents, food composition databases, allergen lists, and food safety guides is first processed. This involves using LangChain's text splitters (e.g., `RecursiveCharacterTextSplitter`) to break down large documents into manageable chunks suitable for embedding.
+    \item \textbf{Embedding Generation:} These text chunks are then converted into vector embeddings using models like Cohere's `embed-english-v2.0` or OpenAI's `text-embedding-ada-002`.
+    \item \textbf{Vector Storage and Retrieval:} The generated embeddings are stored and indexed in a Supabase database leveraging the pgvector extension. When a user asks a question (e.g., \textit{"Is this snack FSSAI approved for children?"}), LangChain initiates a similarity search in the vector store to find the most relevant information.
+    \item \textbf{Contextual Response Generation:} The retrieved text chunks provide context to the LLM, which then generates a comprehensive and factual answer to the user's query.
+\end{itemize}
+
+\subsubsection{SQL Agent for Dietary and Sensor Analysis}
+This agent helps analyze structured data about the user's diet and sensor readings.
+\begin{itemize}
+    \item \textbf{Framework:} Also built using FastAPI and orchestrated with LangChain, the SQL agent is designed to interact with the Supabase PostgreSQL database.
+    \item \textbf{Natural Language to SQL:} It uses an LLM (similar to those in the RAG pipeline) trained or prompted for SQL generation. When a user asks, for example, \textit{"How much protein did I eat yesterday?"} or when the system needs to check for patterns (e.g., consistently high sugar intake based on FSSAI recommendations), the agent converts this into an SQL query.
+    \item \textbf{Schema Awareness:} The agent is provided with the schema of the relevant database tables (food logs, nutritional data, sensor readings) to generate accurate queries.
+    \item \textbf{Result Processing:} The SQL query results are then processed and can be presented to the user in natural language or used to trigger alerts.
+\end{itemize}
+
+\subsection{Sensor Data Pipeline}
+Integrating real-time physiological data provides another layer of personalization.
+\begin{itemize}
+    \item \textbf{Data Acquisition:} The Arduino UNO R3, programmed in C/C++, reads data from connected sensors like the MAX30102 (SpO2, heart rate), AD8232 (ECG), LM35 (temperature), and SEN-11574 (pulse).
+    \item \textbf{Wireless Transmission:} The ESP8266 Wi-Fi module is used to send this data wirelessly. Data is typically formatted as JSON and transmitted via HTTP POST requests to a dedicated backend API endpoint.
+    \item \textbf{Data Storage and Access:} The backend endpoint receives this sensor data and stores it in the Supabase SQL database, associating it with the respective user. This data is then accessible to the SQL agent for analysis and correlation with dietary logs.
+\end{itemize}
+
+\subsection{System Integration}
+Ensuring all components work together seamlessly is key.
+\begin{itemize}
+    \item \textbf{API-Driven Communication:} The frontend, backend services, and the AI core (FastAPI service) primarily communicate via REST APIs.
+    \item \textbf{Authentication Flow:} Supabase Authentication tokens are used to secure API endpoints, ensuring that only authenticated users can access or modify their data.
+    \item \textbf{Unified User Experience:} The goal is to integrate insights from both the RAG pipeline (FSSAI/food safety info) and the SQL agent (personal dietary/sensor analysis) into a cohesive experience. For example, a food item logged by the user can be cross-referenced with FSSAI data via the RAG system, and its nutritional impact analyzed by the SQL agent.
+\end{itemize}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{figures/system-integration}
+\caption{System Integration Architecture}
+\label{fig:system-integration}
+\end{figure} 

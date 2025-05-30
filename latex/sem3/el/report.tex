@@ -1,0 +1,170 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{minted}
+\usepackage{times}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+
+% Format headings
+\titleformat{\chapter}{\normalfont\fontsize{16}{19}\bfseries}{\thechapter}{1em}{}
+\titleformat{\section}{\normalfont\fontsize{14}{17}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\fontsize{12}{15}\bfseries}{\thesubsection}{1em}{}
+
+% Set normal text size to 12pt
+\renewcommand{\normalsize}{\fontsize{12}{14}\selectfont}
+
+\geometry{
+    a4paper,
+    margin=2.5cm
+}
+
+% Code styling
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Setup fancy header and footer
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[L]{HealthHub}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{RV College of Engineering}
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+
+% Title page formatting
+\renewcommand{\maketitle}{
+    \begin{titlepage}
+        \centering
+        \vspace*{-1cm}
+        
+        % Logo and College Name
+        \includegraphics[width=0.2\textwidth]{images/rvce_logo.jpeg}\par\vspace{0.5cm}
+        {\huge\bfseries RV College of Engineering®\par}
+        \vspace{0.5cm}
+        {\Large Go, change the world\par}
+        \vspace{1cm}
+        
+        
+        % Lab Report Title
+        {\Large\bfseries Final Experiental Learning Report\par}
+        \vspace{0.5cm}
+        
+        % Title
+        {\Large\bfseries HEALTHHUB: A COMPREHENSIVE HEALTH\\
+        DATA MANAGEMENT PLATFORM\par}
+        \vspace{1.5cm}
+        
+        % Submitted by
+        {\large\bfseries Submitted by\par}
+        \vspace{0.5cm}
+        \begin{tabular}{ll}
+            Ansh Ravi Kashyap & USN: 1RV23CS040 \\
+            Ashwin Nagendra Bhat & USN: 1RV23CS055 \\
+            Avinash Anish & USN: 1RV23IS145 \\
+            Aarnav Kembhavi & USN: 1RV23CS309 \\
+            Vishal Joy & USN: 1RV23CD059
+            
+            
+        \end{tabular}
+        \vspace{1.5cm}
+        
+        
+        % Academic Year
+        {\large 2024-2025}
+    \end{titlepage}
+}
+
+\title{\fontsize{16}{19}\selectfont HealthHub: A Comprehensive Health Data Management Platform\\
+       Implementation and Analysis Report}
+\author{Department of Information Science and Engineering\\
+        RV College of Engineering}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+% Abstract
+\input{sections/abstract.tex}
+
+% CHAPTER 1: INTRODUCTION
+\chapter{INTRODUCTION}
+\input{sections/introduction.tex}      % Introduction
+\input{sections/problem_statement.tex} % Problem Statement
+\input{sections/objectives.tex}        % Objectives
+
+% CHAPTER 2: LITERATURE SURVEY
+\chapter{LITERATURE SURVEY}
+\input{sections/existing_systems.tex}  % All literature review content
+
+% CHAPTER 3: DESIGN
+\chapter{DESIGN}
+\input{sections/methodology.tex}       % System Architecture & Flow Diagrams
+\input{sections/design_impl.tex}       % Design & Implementation
+\input{sections/tools_techniques.tex}  % Tools & Techniques
+
+% CHAPTER 4: RESULTS & DISCUSSIONS
+\chapter{RESULTS \& DISCUSSIONS}
+\input{sections/performance_results.tex}  % Results & Discussion
+\input{sections/prototype.tex}           % Prototype Description
+
+% CHAPTER 5: TESTING
+\chapter{TESTING}
+\input{sections/testing.tex}
+
+% CHAPTER 6: CONCLUSION
+\chapter{CONCLUSION}
+\input{sections/conclusion.tex}
+
+% CHAPTER 7: VISUALS
+\chapter{VISUALS}
+\input{sections/visuals.tex}
+
+% References
+\chapter*{REFERENCES}
+\addcontentsline{toc}{chapter}{REFERENCES}
+\input{sections/references.tex}
+
+\end{document} 

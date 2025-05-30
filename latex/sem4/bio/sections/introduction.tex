@@ -1,0 +1,34 @@
+\section{Introduction}
+
+Making informed daily dietary choices can be a real challenge for people trying to stay healthy and ensure their food is safe. It's often difficult for consumers to find and understand complex information about food ingredients, potential allergens, nutritional content, and whether foods meet safety standards, like those from the Food Safety and Standards Authority of India (FSSAI) [4]. AI-powered personal health assistants are emerging as a helpful way to give individuals personalized and useful insights. This paper introduces HealthHub, an innovative AI-powered personal health assistant designed to provide users with comprehensive food safety and nutritional information that's tailored to what they eat each day and their personal health metrics.
+
+HealthHub enables users to log their daily food intake, which the system then analyzes using a dual-AI approach. A Retrieval-Augmented Generation (RAG) pipeline queries diverse data sources—including FSSAI advisories, food composition databases, allergen lists, and general food safety information—to answer user queries about the safety and content of their meals. Concurrently, an intelligent SQL agent processes structured nutritional data and the user's consumption history, facilitating personalized dietary analysis. A key feature of HealthHub is its integration with personal health sensors (e.g., heart rate monitors), allowing the system to correlate food intake with physiological responses and provide timely warnings or insights regarding potential food-related health risks. The platform is designed for intuitive interaction, incorporating voice and video assistant capabilities to enhance user experience.
+
+\subsection{Problem Statement}
+The development of HealthHub is motivated by several critical challenges faced by consumers:
+\begin{itemize}[noitemsep, topsep=0pt]
+    \item Difficulty in readily accessing, understanding, and applying comprehensive food safety information (e.g., concerning ingredients, allergens, FSSAI compliance) to their specific dietary choices.
+    \item The absence of integrated personal tools that effectively correlate dietary consumption with real-time biometric data to proactively identify potential adverse reactions or health risks.
+    \item A need for more intuitive and conversational interfaces, such as voice and video assistants, that allow users to easily query complex food and health-related datasets and receive personalized, actionable guidance.
+\end{itemize}
+
+\subsection{Objectives}
+The primary objectives of this research are to:
+\begin{itemize}[noitemsep, topsep=0pt]
+    \item Develop a system enabling users to seamlessly log their daily food consumption and pose natural language queries about their diet.
+    \item Implement a RAG pipeline capable of retrieving, synthesizing, and presenting relevant information from varied sources (including FSSAI data, nutritional databases, and food safety alerts) in response to user queries.
+    \item Create an SQL agent for the detailed analysis of users' dietary patterns, nutritional intake, and consumption history.
+    \item Integrate data from personal health sensors to provide context-aware health alerts and observations related to an individual's food consumption.
+    \item Design and demonstrate a user-friendly, multi-modal interface featuring voice and video assistant functionalities for enhanced user interaction with the HealthHub platform.
+\end{itemize}
+
+\subsection{Contributions}
+This paper makes the following contributions to the field of personal health informatics and AI applications:
+\begin{itemize}[noitemsep, topsep=0pt]
+    \item We introduce HealthHub, an AI-powered personal assistant. It helps people by giving them tailored advice on food safety and nutrition, using a smart mix of RAG, SQL agent technology, and information from their personal health sensors.
+    \item We show how RAG can be practically used to search and make sense of detailed food information from various places, including official data from FSSAI. This helps people directly by enabling them to make more informed decisions about what they eat.
+    \item We present a new method that combines records of what people eat with live data from their personal health sensors. This allows HealthHub to give proactive, individual health feedback and warn about potential risks tied to food intake.
+    \item We share insights from developing an easy-to-use interface that includes voice and video for our personal food safety and health app. The goal is to make the app more accessible and engaging for users.
+\end{itemize}
+
+The development of intelligent systems for health and dietary support continues to evolve, with RAG and conversational AI showing particular promise [7, 13]. HealthHub builds upon these advancements by creating a consumer-focused application that directly addresses food safety and personalized nutrition, integrating sensor data for a more holistic approach to personal well-being, and leveraging FSSAI data for localized relevance.

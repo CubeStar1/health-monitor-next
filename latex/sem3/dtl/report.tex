@@ -1,0 +1,309 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{times}
+
+% Page geometry as per guidelines
+\geometry{
+    a4paper,
+    left=1.5in,
+    right=1in,
+    top=1in,
+    bottom=1in,
+    includehead,  % Include space for headers
+    includefoot   % Include space for footers
+}
+
+% Set line spacing to 1.5
+\onehalfspacing
+
+% Format headings as per guidelines
+\titleformat{\chapter}[display]
+  {\normalfont}
+  {\raggedright\fontsize{16}{19}\bfseries\MakeUppercase{\chaptertitlename}\ \thechapter}
+  {20pt}
+  {\centering\fontsize{18}{22}\bfseries\MakeUppercase}
+
+\titleformat{\section}
+  {\normalfont\fontsize{16}{19}\bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\fontsize{14}{17}\bfseries}{\thesubsection}{1em}{}
+
+% Set normal text size to 12pt Times New Roman
+\renewcommand{\normalsize}{\fontsize{12}{14}\selectfont}
+
+% Remove or comment out the early fancy header setup
+% Setup fancy header and footer first
+%\pagestyle{fancy}
+%\fancyhf{} % Clear all headers and footers
+%\fancyhead[L]{Design Thinking Lab Report}
+%\fancyhead[R]{Department of ISE}
+%\fancyfoot[L]{Academic Year 2024-2025}
+%\fancyfoot[R]{\thepage}
+%\renewcommand{\headrulewidth}{1pt}
+%\renewcommand{\footrulewidth}{1pt}
+
+% Setup chapter page style
+%\fancypagestyle{plain}{
+%    \fancyhf{} % Clear all headers and footers
+%    \fancyhead[L]{Design Thinking Lab Report}
+%    \fancyhead[R]{Department of ISE}
+%    \fancyfoot[L]{Academic Year 2024-2025}
+%    \fancyfoot[R]{\thepage}
+%    \renewcommand{\headrulewidth}{1pt}
+%    \renewcommand{\footrulewidth}{1pt}
+%}
+
+% Title and TOC pages style
+\fancypagestyle{empty}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+% Ensure chapter pages use fancy style
+\renewcommand{\chapterpagestyle}{plain}
+
+% Code styling
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Remove the current chapter style modification
+\makeatletter
+\renewcommand{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi
+    \global\@topnum\z@
+    \@afterindentfalse
+    \secdef{\@chapter}{\@schapter}}
+    
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+    \refstepcounter{chapter}%
+    \typeout{\@chapapp\space\thechapter.}%
+    \addcontentsline{toc}{chapter}%
+        {\protect\numberline{\thechapter}#1}%
+    \else
+    \addcontentsline{toc}{chapter}{#1}%
+    \fi
+    \chaptermark{#1}%
+    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+    \@makechapterhead{#2}%
+    \@afterheading}
+\makeatother
+
+% Title page formatting
+\renewcommand{\maketitle}{
+    \begin{titlepage}
+        \centering
+        \vspace*{-2cm}
+        
+        % Logo and College Name with header
+        \begin{center}
+            \includegraphics[width=0.9\textwidth]{figures/rvce_logo_header.jpg}\par
+        \end{center}
+        \vspace{0.5cm}
+        
+        % Department
+        {\Large\bfseries DEPARTMENT OF INFORMATION SCIENCE AND ENGINEERING\par}
+        \vspace{0.7cm}
+        
+        % Lab Report Title
+        {\Large\bfseries DESIGN THINKING LAB REPORT\par}
+        \vspace{0.3cm}
+        {\large IS237DL\par}
+        \vspace{0.7cm}
+
+        % Theme and Title
+        {\large Theme: IoT in Healthcare\par}
+        \vspace{0.3cm}
+        {\large Title: HealthHub- A Platform for AI-Driven Health Monitoring and Natural Language Data Querying\par}
+        \vspace{1cm}
+        
+        % Submitted by
+        {\large\bfseries Submitted by\par}
+        \vspace{0.3cm}
+        \begin{tabular}{ll}
+            Avinash Anish & USN: 1RV23IS145 \\
+        \end{tabular}
+        \vspace{1cm}
+        
+        % Guide
+        {\large\bfseries Under the guidance of\par}
+        \vspace{0.2cm}
+        Dr. Ashwini KB\\
+        Associate Professor\\
+        Dept. of ISE\\
+        RV College of Engineering®\par
+        \vfill
+        
+        % Academic Year
+        {\large 2024-2025}
+    \end{titlepage}
+}
+
+% Add this to control chapter numbering
+\setcounter{chapter}{0}
+
+% After the packages and before \begin{document}
+% Add these commands for page numbering control
+\renewcommand{\thepage}{\roman{page}}  % Roman numerals for preliminary pages
+
+\begin{document}
+
+% Title page with no headers/footers and no page number
+\thispagestyle{empty}
+\maketitle
+
+% Certificate page
+\thispagestyle{empty}
+\vspace*{-1.5cm}  % Increased negative space at top
+{\centering
+\large\bfseries   % Reduced from \Large to \large
+RV COLLEGE OF ENGINEERING®,\\
+BENGALURU-59\\
+\vspace{0.1cm}    % Reduced from 0.2cm
+{\small (Autonomous Institution Affiliated to VTU, Belagavi)}\par  % Reduced from normalsize to small
+\vspace{0.3cm}    % Reduced from 0.5cm
+DEPARTMENT OF INFORMATION SCIENCE AND\\
+ENGINEERING\par
+\vspace{0.7cm}    % Reduced from 1cm
+\includegraphics[width=0.2\textwidth]{figures/rv-logo.png}\par  % Reduced logo size
+\vspace{0.7cm}    % Reduced from 1cm
+CERTIFICATE\par
+}
+\vspace{0.3cm}    % Reduced from 0.5cm
+
+\small            % Reduced text size for the main content
+\noindent Certified that the Design thinking Laboratory work titled `HealthHub- A Platform for AI-Driven Health Monitoring and Natural Language Data Querying' is carried out by Avinash Anish (1RV23IS145), in partial fulfilment for the requirement of degree of Bachelor of Engineering in Information Science and Engineering of the Visvesvaraya Technological University, Belagavi during the year 2023-2024. It is certified that all corrections/suggestions indicated for the Internal Assessment have been incorporated in the report.
+
+\vspace{0.7cm}    % Reduced from 1cm
+\normalsize       % Reset to normal size for signatures
+\begin{flushleft}
+\hspace{1cm}Dr. Ashwini KB\hfill Dr. Mamatha G.S.\hspace{1cm}\\
+\hspace{1cm}Associate Professor\hfill Professor and HoD\hspace{1cm}\\
+\hspace{1cm}Department of ISE\hfill Department of ISE\hspace{1cm}
+\end{flushleft}
+
+\vspace{1cm}      % Reduced from 1.5cm
+\begin{center}
+\textbf{External Viva}
+\end{center}
+
+\vspace{0.2cm}    % Reduced from 0.3cm
+\begin{center}
+\begin{tabular}{p{5cm}p{5cm}}
+Name of Examiners & Signature with Date\\[0.3cm]
+1. & \\[0.2cm]
+2. & 
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+
+\clearpage
+
+% Acknowledgement with Roman numeral page number
+\thispagestyle{empty}
+{\centering\fontsize{16}{19}\bfseries\spaced{ACKNOWLEDGEMENT}\par}
+\vspace{1cm}
+
+\spaced{\noindent Any achievement, be it scholastic or otherwise does not depend solely on the individual efforts but on the guidance, encouragement and cooperation of intellectuals, elders and friends. A number of personalities, in their own capacities have helped us in carrying out this Design Thinking Laboratory work. We would like to take this opportunity to thank them all.}
+
+\vspace{1cm}
+\spaced{\noindent We are also thankful to the coordinator, Prof. Sushmitha N, Assistant Professor, Dept. of ISE for her wholehearted support, suggestions and advice during this work.}
+
+\vspace{1cm}
+\spaced{\noindent Our sincere thanks to Dr. Mamatha G S, Professor and Head, Department of Information Science and Engineering, RVCE for his support and encouragement.}
+
+\vspace{1cm}
+\spaced{\noindent We express sincere gratitude to our beloved Principal, Dr. K. N. Subramanya for his appreciation towards this work.}
+
+\vspace{1cm}
+\spaced{\noindent We thank all the teaching staff and technical staff of Information Science and Engineering department, RVCE for their help.}
+\clearpage
+
+% Abstract with Roman numeral page number
+\thispagestyle{empty}
+{\centering\fontsize{16}{19}\bfseries ABSTRACT\par}
+\vspace{1cm}
+
+The healthcare information technology market reached USD 260.90 billion in 2023, driven by increasing digitization of health records and rising demand for personalized healthcare solutions. Personal health data management emerged as a critical component in modern healthcare delivery, with Electronic Health Records (EHR) systems and Internet of Things (IoT) devices generating unprecedented volumes of health-related data. Recent developments in Artificial Intelligence (AI) and Machine Learning (ML) have revolutionized how health data is processed, analyzed, and utilized for preventive care and medical decision-making.
+
+Despite these advancements, significant challenges persisted in integrating diverse health data sources and providing contextual, personalized health insights. Traditional health management systems struggled with fragmented data storage, limited interoperability, and inadequate real-time monitoring capabilities. This project addressed these challenges by developing a web-based AI-powered health monitoring platform that seamlessly integrated various data sources while ensuring data privacy and accessibility. The platform aimed to bridge the gap between complex medical information and user comprehension through intelligent data processing and visualization, accessible through any modern web browser.
+
+The development followed the Design Thinking methodology, incorporating five key phases: Empathize, Define, Ideate, Prototype, and Test. The technical implementation utilized the Retrieval-Augmented Generation (RAG) pipeline architecture, built on Next.js 14 for the frontend and FastAPI for the backend services. The system integrated Arduino sensors for real-time health monitoring, employed Large Language Models (LLM) including OpenAI GPT-4o and Google Gemini 2.0 for natural language processing, and utilized Supabase with vector embeddings for efficient data storage and retrieval. The web application was successfully deployed to production using Vercel for the frontend, Amazon Web Services (AWS) for the backend infrastructure, and Supabase Cloud for database services, ensuring high availability and scalability. The project was developed under the assumption of stable internet connectivity and user access to compatible IoT devices, with primary focus on individual health monitoring rather than clinical diagnosis.
+\clearpage
+
+% Table of contents with Roman numeral page number
+\thispagestyle{empty}
+\tableofcontents
+\clearpage
+
+% Start headers/footers and Arabic page numbering from here
+\pagestyle{fancy}
+\fancyhf{} % Clear all headers and footers
+\fancyhead[L]{Design Thinking Lab Report}
+\fancyhead[R]{Department of ISE}
+\fancyfoot[L]{Academic Year 2024-2025}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+% Setup chapter page style
+\fancypagestyle{plain}{
+    \fancyhf{} % Clear all headers and footers
+    \fancyhead[L]{Design Thinking Lab Report}
+    \fancyhead[R]{Department of ISE}
+    \fancyfoot[L]{Academic Year 2024-2025}
+    \fancyfoot[R]{\thepage}
+    \renewcommand{\headrulewidth}{1pt}
+    \renewcommand{\footrulewidth}{1pt}
+}
+
+% Switch to Arabic numerals and reset page counter
+\renewcommand{\thepage}{\arabic{page}}
+\setcounter{page}{1}
+
+% Include all sections
+\input{report_part2.tex}  % Empathy chapter
+\input{report_part3.tex}  % Define chapter
+\input{report_part4.tex}  % Ideate chapter
+\input{report_part5.tex}  % Prototyping chapter
+\input{report_part6.tex}  % Testing chapter
+\input{report_part7.tex}  % Conclusion and Bibliography
+
+\end{document} 
