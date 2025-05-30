@@ -1,38 +1,30 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Area, AreaChart, Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Area, AreaChart, Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { HealthData } from "@/lib/types/health-types";
 
 interface HealthChartProps {
-  data: any[];
+  data: HealthData[];
   dataKey: string;
   title: string;
   unit: string;
   chartType: 'area' | 'line';
 }
 
+const baseChartConfig = {
+  beat_avg: { label: "Heart Rate", color: "hsl(340 75% 55%)" },
+  temperature_c: { label: "Temperature", color: "hsl(150, 70%, 60%)" },
+  ir_value: { label: "ECG Value", color: "hsl(280, 60%, 65%)" }, 
+  humidity: { label: "Humidity", color: "hsl(20, 80%, 65%)" },
+} satisfies ChartConfig;
+
 export function HealthChart({ data, dataKey, title, unit, chartType }: HealthChartProps) {
   const chartConfig = {
     [dataKey]: {
       label: title,
-      color: "hsl(var(--chart-1))",
+      color: baseChartConfig[dataKey as keyof typeof baseChartConfig]?.color || "hsl(var(--chart-1))", // Use specific color or fallback
     },
-    "average_temperature": {
-      label: "Temperature",
-      color: "hsl(var(--chart-1))",
-    },
-    "average_ecg": {
-      label: "ECG",
-      color: "hsl(var(--chart-2))",
-    },
-    "average_spo2": {
-      label: "SpO2",
-      color: "hsl(var(--chart-3))",
-    },
-    "average_heart_rate": {
-      label: "Heart Rate",
-      color: "hsl(var(--chart-4))",
-    },
-  } satisfies ChartConfig
+  } satisfies ChartConfig;
 
   const formatXAxis = (dateString: string) => {
     const date = new Date(dateString);
@@ -54,24 +46,9 @@ export function HealthChart({ data, dataKey, title, unit, chartType }: HealthCha
     });
   };
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-background border rounded-lg p-2 shadow-sm">
-          <p className="text-sm font-medium">{formatTooltipDate(label)}</p>
-          <p className="text-sm text-muted-foreground">
-            {`${title}: ${payload[0].value.toFixed(2)}${unit}`}
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
-
   const commonChartProps = {
     data: data,
-    margin: { top: 10, right: 30, left: 0, bottom: 0 },
-    height: 300,
+    margin: { top: 5, right: 10, left: -20, bottom: 0 }, // Adjusted margins
   };
 
   const commonDataComponentProps = {
@@ -82,50 +59,81 @@ export function HealthChart({ data, dataKey, title, unit, chartType }: HealthCha
   };
 
   return (
-    <Card>
+    <Card className="h-full flex flex-col">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>Real-time {title.toLowerCase()} measurements</CardDescription>
+        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <CardDescription>Real-time {title.toLowerCase()} measurements {unit ? `(${unit})` : ''}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          {chartType === 'area' ? (
-            <AreaChart {...commonChartProps}>
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <XAxis
-                dataKey="created_at"
-                tickFormatter={formatXAxis}
-                interval="preserveStartEnd"
-                minTickGap={50}
-              />
-              <YAxis />
-              <ChartTooltip
-                content={<CustomTooltip />}
-              />
-              <Area
-                {...commonDataComponentProps}
-                fill={chartConfig[dataKey].color}
-              />
-            </AreaChart>
-          ) : (
-            <LineChart {...commonChartProps}>
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
-              <XAxis
-                dataKey="created_at"
-                tickFormatter={formatXAxis}
-                interval="preserveStartEnd"
-                minTickGap={50}
-              />
-              <YAxis />
-              <ChartTooltip
-                content={<CustomTooltip />}
-              />
-              <Line
-                {...commonDataComponentProps}
-                fill="none"
-              />
-            </LineChart>
-          )}
+      <CardContent className="flex-grow pb-4">
+        <ChartContainer config={chartConfig} className="h-full w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            {chartType === 'area' ? (
+              <AreaChart {...commonChartProps}>
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="created_at"
+                  tickFormatter={formatXAxis}
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  interval="preserveStartEnd"
+                  minTickGap={40}
+                />
+                <YAxis 
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  domain={[0, 'auto']}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent 
+                    indicator="dot"
+                    labelFormatter={formatTooltipDate} 
+                    formatter={(value, name, props) => [`${Number(value).toFixed(2)} ${unit}`, title]}
+                  />}
+                />
+                <Area
+                  {...commonDataComponentProps}
+                  fill={chartConfig[dataKey].color}
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </AreaChart>
+            ) : (
+              <LineChart {...commonChartProps}>
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="created_at"
+                  tickFormatter={formatXAxis}
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  interval="preserveStartEnd"
+                  minTickGap={40}
+                />
+                <YAxis 
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  domain={['auto', 'auto']}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent 
+                    indicator="line"
+                    labelFormatter={formatTooltipDate}
+                    formatter={(value, name, props) => [`${Number(value).toFixed(2)} ${unit}`, title]}
+                  />}
+                />
+                <Line
+                  {...commonDataComponentProps}
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            )}
+          </ResponsiveContainer>
         </ChartContainer>
       </CardContent>
     </Card>
