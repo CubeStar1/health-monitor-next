@@ -7,8 +7,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { ChevronRight } from 'lucide-react'
-import { HealthChart } from './components/HealthChart'
-import { Sidebar } from './components/Sidebar'
+import { HealthChart } from './components/charts'
+import { Sidebar } from './components/monitor-sidebar'
 
 interface HealthData {
   id: number;

@@ -1,6 +1,6 @@
 "use client"
 
-import { ModeToggle } from "@/app/components/ModeToggle"
+import { ModeToggle } from "@/components/global/theme-switcher"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Separator } from "@/components/ui/separator"
 import {

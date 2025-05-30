@@ -1,0 +1,76 @@
+\subsection{External Interface Requirements}
+
+1. \textbf{User Interface}
+The user interface (UI) of the health monitoring system is designed to be simple, intuitive, and user-friendly, ensuring a seamless experience for patients, healthcare providers, and administrators.
+
+\begin{itemize}
+    \item \textbf{Platform Compatibility}:
+    \begin{itemize}
+        \item The app is initially developed using Next.js for web platform
+        \item As part of future upgrades, the app will be expanded to support mobile devices
+        \item Additionally, a desktop version of the app is planned for future development, offering users the ability to manage health records from their computers
+    \end{itemize}
+
+    \item \textbf{Design}:
+    \begin{itemize}
+        \item The design will follow Material Design guidelines, ensuring a modern and cohesive look across all screens
+        \item The layout will be responsive and optimized for mobile screens, making navigation between features easy and efficient
+        \item The app will feature a dashboard that provides quick access to health metrics, sensor readings, and reminders
+    \end{itemize}
+
+    \item \textbf{User Roles and Access}:
+    Depending on the user's role (patient, healthcare provider, or administrator), the interface will show different levels of access:
+    \begin{itemize}
+        \item Patients will have access to their personal health data, reports, and sensor readings
+        \item Healthcare providers will have options for viewing patient data and providing medical insights
+        \item Administrators will have view-only access to system statistics and user management
+    \end{itemize}
+\end{itemize}
+
+2. \textbf{Hardware Interface}
+\begin{itemize}
+    \item Integration with Arduino-based health monitoring devices
+    \item Support for Bluetooth-enabled medical devices
+    \item Connection to vital signs monitoring equipment
+    \item USB interface for direct sensor connections
+\end{itemize}
+
+3. \textbf{Software Interface}
+\begin{itemize}
+    \item RESTful API endpoints for data access
+    \item WebSocket connections for real-time monitoring
+    \item Database interfaces for health record storage
+    \item Authentication service integration
+\end{itemize}
+
+4. \textbf{Communication Interface}
+\begin{itemize}
+    \item HTTPS protocol for secure data transmission
+    \item WebSocket protocol for real-time sensor data
+    \item OAuth 2.0 for secure authentication
+    \item SSL/TLS encryption for all communications
+\end{itemize}
+
+\subsection{Hardware Interfaces}
+\begin{itemize}
+    \item Arduino sensor integration
+    \item ESP8266 WiFi connectivity
+    \item USB-Serial communication
+    \item Health monitoring sensors
+\end{itemize}
+
+\subsection{Software Interfaces}
+\begin{itemize}
+    \item OpenAI API integration
+    \item Cohere API integration
+    \item Supabase database interface
+    \item Tavily API integration
+\end{itemize}
+
+\subsection{Communications Interfaces}
+\begin{itemize}
+    \item HTTP/HTTPS protocols
+    \item WebSocket connections
+    \item Real-time data streaming
+    \item API authentication
+\end{itemize} 

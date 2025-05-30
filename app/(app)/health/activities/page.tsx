@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { createSupabaseBrowser } from "@/lib/supabase/client"
 import { Activity } from './types'
-import ActivityGrid from './components/ActivityGrid'
-import StravaConnect from './components/StravaConnect'
+import ActivityGrid from './components/activity-grid'
+import StravaConnect from './components/strava-connect'
 import { Skeleton } from "@/components/ui/skeleton"
 import { Footprints } from 'lucide-react'
 

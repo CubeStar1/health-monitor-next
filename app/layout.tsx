@@ -1,10 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from "@/app/components/theme-provider"
-import { Header } from './components/Header'
-import QueryProvider from "@/components/query-provider";
-import { Toaster } from "@/app/components/Toaster"
+import { ThemeProvider } from "@/components/global/theme-provider"
+import QueryProvider from "@/components/global/query-provider";
+import { Toaster } from "@/components/global/toaster";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react"
 

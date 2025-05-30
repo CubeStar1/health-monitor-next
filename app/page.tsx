@@ -2,14 +2,10 @@ import { Hero } from "@/components/landing/hero";
 import { Features } from "@/components/landing/features";
 import { TechStack } from "@/components/landing/tech-stack";
 import { RAGPipeline } from "@/components/landing/rag-pipeline";
-import { HealthAssistant } from "@/components/landing/health-assistant";
-import { motion } from "framer-motion";
-import FeaturesGrid from "@/app/components/FeaturesGrid";
-import GridPattern from "@/components/ui/grid-pattern";
 import DotPattern from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/components/landing/footer";
-import { Header } from "@/app/components/Header";
+import { Header } from "@/components/global/header";
 import dynamic from 'next/dynamic';
 
 // Dynamic imports for both components

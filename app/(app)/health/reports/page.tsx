@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { FileText, Loader2, Grid, List, ExternalLink } from 'lucide-react'
-import useUser from '@/app/hook/useUser'
+import useUser from '@/hooks/use-user'
 import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/navigation'
 import {
@@ -158,7 +158,7 @@ export default function ReportsPage() {
             <Card 
               key={report.id}
               className="cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => router.push(`/health/report/${report.id}`)}
+              onClick={() => router.push(`/health/reports/${report.id}`)}
             >
               <CardHeader>
                 <CardTitle className="flex justify-between items-center">
@@ -197,7 +197,7 @@ export default function ReportsPage() {
                   <TableRow 
                     key={report.id}
                     className="cursor-pointer hover:bg-gray-50"
-                    onClick={() => router.push(`/health/report/${report.id}`)}
+                    onClick={() => router.push(`/health/reports/${report.id}`)}
                   >
                     <TableCell>
                       <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ export default function ReportsPage() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => router.push(`/health/report/${report.id}`)}
+                        onClick={() => router.push(`/health/reports/${report.id}`)}
                       >
                         <ExternalLink className="h-4 w-4" />
                       </Button>

@@ -1,0 +1,53 @@
+\section{API Requirements}
+\subsection{External API Integration}
+\begin{enumerate}
+    \item \textbf{OpenAI API}
+    \begin{itemize}
+        \item GPT-4 for medical query processing
+        \item Response generation with medical context
+        \item Error handling and rate limiting
+    \end{itemize}
+
+    \item \textbf{Cohere API}
+    \begin{itemize}
+        \item Embedding generation for medical documents
+        \item Vector similarity search
+        \item Multilingual support
+    \end{itemize}
+
+    \item \textbf{Tavily API}
+    \begin{itemize}
+        \item Medical web search functionality
+        \item Source verification
+        \item Result ranking
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Internal API Endpoints}
+Based on the project structure:
+
+\begin{lstlisting}[language=typescript]
+// app/api/documents/generate/route.ts
+export async function POST(req: Request) {
+    try {
+        const { documentId } = await req.json();
+        const supabase = createRouteHandlerClient({ cookies });
+        
+        // Document processing logic
+        const analysis = await processDocument(documentId);
+        
+        // Update database with analysis results
+        await supabase
+            .from('health_records')
+            .update({ analysis })
+            .eq('id', documentId);
+            
+        return NextResponse.json({ success: true });
+    } catch (error) {
+        return NextResponse.json(
+            { error: "Failed to process document" },
+            { status: 500 }
+        );
+    }
+}
+\end{lstlisting} 

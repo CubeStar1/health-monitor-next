@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { ScrollArea } from "@/components/ui/scroll-area"
-import useUser from "@/app/hook/useUser"
+import useUser from "@/hooks/use-user"
 import { NutritionCharts } from "./components/NutritionCharts"
 
 export default function NutritionTracker() {
@@ -103,7 +103,6 @@ export default function NutritionTracker() {
           body: JSON.stringify(newFood),
         });
         const consumedData: Food[] = await consumedResponse.json();
-        console.log(consumedData)
         setTrackedFoods(prevFoods => [...prevFoods, consumedData[0]]); 
         toast({
           title: 'Food Added',

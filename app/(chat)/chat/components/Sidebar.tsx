@@ -2,8 +2,8 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { LLMSelector } from '../../../components/LLMSelector'
-import { ConversationList } from './ConversationList'
+import { LLMSelector } from "@/components/global/llm-selector"
+import { ConversationList } from './conversation-list'
 
 interface SidebarProps {
   isSidebarOpen: boolean;

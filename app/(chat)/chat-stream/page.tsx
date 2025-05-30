@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useChat } from 'ai/react';
-import { StreamSidebar } from './components/StreamSidebar';
-import { StreamChatInterface } from './components/StreamChatInterface';
-import useUser from '../../hook/useUser';
+import { StreamSidebar } from './components/sidebar';
+import { StreamChatInterface } from './components/chat-interface';
+import useUser from '../../../hooks/use-user';
 import { Message, Conversation } from '../chat/types';
 import { useToast } from '@/hooks/use-toast';
 

@@ -1,0 +1,56 @@
+\section{Testing Strategy}
+\subsection{Unit Testing}
+Based on the project structure:
+
+\begin{enumerate}
+    \item \textbf{Frontend Component Testing}
+    \begin{lstlisting}[language=typescript]
+    // RecordDetails.test.tsx
+    describe('RecordDetails', () => {
+        it('should render health record details', () => {
+            const record = {
+                id: '123',
+                file_name: 'test.pdf',
+                analysis: {
+                    text_content: 'Test content',
+                    indicators: []
+                }
+            };
+            
+            render(<RecordDetails record={record} />);
+            expect(screen.getByText('test.pdf')).toBeInTheDocument();
+        });
+    });
+    \end{lstlisting}
+
+    \item \textbf{Hook Testing}
+    \begin{lstlisting}[language=typescript]
+    // useSensorData.test.ts
+    describe('useSensorData', () => {
+        it('should subscribe to sensor updates', async () => {
+            const { result } = renderHook(() => useSensorData());
+            expect(result.current.isLoading).toBe(true);
+            // Test real-time updates
+        });
+    });
+    \end{lstlisting}
+\end{enumerate}
+
+\subsection{Integration Testing}
+\begin{itemize}
+    \item \textbf{API Integration Tests}
+    \begin{itemize}
+        \item Document upload and processing flow
+        \item RAG pipeline functionality
+        \item Sensor data integration
+        \item Real-time updates
+    \end{itemize}
+
+    \item \textbf{End-to-End Testing}
+    \begin{itemize}
+        \item User authentication flow
+        \item Health record management
+        \item Dashboard functionality
+        \item Chat interface
+    \end{itemize}
+\end{itemize} 

@@ -1,0 +1,59 @@
+\subsection{System Requirements}
+Based on the project's technical implementation:
+
+\begin{enumerate}
+    \item \textbf{Hardware Requirements}
+    \begin{itemize}
+        \item \textbf{Server Infrastructure}
+        \begin{itemize}
+            \item Minimum 8GB RAM
+            \item 4+ CPU cores
+            \item 100GB+ storage
+            \item High-speed network connection
+        \end{itemize}
+
+        \item \textbf{Sensor Hardware}
+        \begin{itemize}
+            \item Arduino UNO or compatible
+            \item MAX30102 heart rate sensor
+            \item DS18B20 temperature sensor
+            \item ESP8266 WiFi module
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Software Requirements}
+    \begin{lstlisting}[language=typescript]
+    // From package.json dependencies
+    {
+        "dependencies": {
+            "next": "^14.0.0",
+            "react": "^18.2.0",
+            "typescript": "^5.0.0",
+            "@supabase/supabase-js": "^2.0.0",
+            "langchain": "^0.0.75"
+        }
+    }
+    \end{lstlisting}
+    \begin{itemize}
+        \item Node.js v14 or later
+        \item Python 3.8 or later
+        \item PostgreSQL database
+        \item Modern web browser
+    \end{itemize}
+
+    \item \textbf{Network Requirements}
+    \begin{itemize}
+        \item Stable internet connection
+        \item Minimum 10Mbps bandwidth
+        \item Low latency (<50ms)
+        \item WebSocket support
+    \end{itemize}
+
+    \item \textbf{Development Environment}
+    \begin{itemize}
+        \item Git version control
+        \item IDE with TypeScript support
+        \item Docker for containerization
+        \item Testing frameworks
+    \end{itemize}
+\end{enumerate} 

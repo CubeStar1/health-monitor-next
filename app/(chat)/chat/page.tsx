@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { createSupabaseServer } from '@/lib/supabase/server'
-import ChatPageClient from './ChatPageClient'
-import { ChatSkeleton } from './components/ChatSkeleton'
+import ChatPageClient from './chat-client'
+import { ChatSkeleton } from './components/chat-skeleton'
 
 export const revalidate = 0
 

@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { createSupabaseServer } from '@/lib/supabase/server'
-import HealthRecordsPageClient from './HealthRecordsPageClient'
-import { HealthRecordsSkeleton } from './components/HealthRecordsSkeleton'
+import HealthRecordsPageClient from './records-client'
+import { HealthRecordsSkeleton } from './components/health-records-skeleton'
 
 export const revalidate = 0
 

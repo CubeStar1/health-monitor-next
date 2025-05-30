@@ -40,7 +40,6 @@ const FormSchema = z
 	.refine(
 		(data) => {
 			if (data["confirm-pass"] !== data.password) {
-				console.log("running");
 				return false;
 			} else {
 				return true;

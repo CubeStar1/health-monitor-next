@@ -1,6 +1,6 @@
 import { createSupabaseServer } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
-import { RecordDetails } from '../components/RecordDetails';
+import { RecordDetails } from '../components/record-details';
 import { redirect } from 'next/navigation';
 
 export default async function RecordPage({ params }: { params: { id: string } }) {
@@ -26,8 +26,6 @@ export default async function RecordPage({ params }: { params: { id: string } })
       .single()
   ]);
 
-  console.log('File metadata:', fileResult.data);
-  console.log('Analysis:', analysisResult.data);
 
   if (!fileResult.data) {
     redirect('/health/records');
@@ -42,8 +40,6 @@ export default async function RecordPage({ params }: { params: { id: string } })
   if (signedUrlError) {
     console.error('Signed URL error:', signedUrlError);
   }
-
-  console.log('Signed URL:', signedUrlData?.signedUrl);
 
   const record = {
     ...fileResult.data,

@@ -1,0 +1,97 @@
+\section{External Interface Requirements}
+\subsection{User Interfaces}
+\begin{enumerate}
+    \item \textbf{Health Records Interface}
+    \begin{itemize}
+        \item Document upload and management
+        \item Record viewing and analysis
+        \item Search and filtering capabilities
+        \item Document preview functionality
+    \end{itemize}
+
+    \item \textbf{Chat Interface}
+    \begin{itemize}
+        \item Natural language query input
+        \item Context-aware response display
+        \item Conversation history management
+        \item Model selection options
+    \end{itemize}
+
+    \item \textbf{Dashboard Interface}
+    \begin{itemize}
+        \item Real-time sensor data display
+        \item Health metrics visualization
+        \item Historical data charts
+        \item Alert notifications
+    \end{itemize}
+\end{enumerate}
+
+\section{Functional Requirements}
+\subsection{Health Record Management}
+\begin{lstlisting}[language=typescript]
+// Example from RecordDetails.tsx
+interface RecordDetailsProps {
+  record: {
+    id: string;
+    user_id: string;
+    file_name: string;
+    display_name: string;
+    created_at: string;
+    object_id: string | null;
+    analysis?: {
+      text_content: string;
+      confidence_level: string;
+      indicators: Array<{
+        name: string;
+        value: string;
+        status: string;
+        normal_range: string;
+        interpretation: string;
+      }>;
+    };
+    fileUrl: string | null;
+  }
+}
+\end{lstlisting}
+
+\subsection{AI Integration Requirements}
+\begin{itemize}
+    \item RAG pipeline implementation
+    \item Vector similarity search
+    \item Context management
+    \item Response generation
+\end{itemize}
+
+\section{Detailed Non-Functional Requirements}
+\subsection{Performance Requirements}
+\begin{itemize}
+    \item Response time < 2 seconds
+    \item 99.9\% system uptime
+    \item Support for 1000+ concurrent users
+    \item Real-time data updates < 100ms
+\end{itemize}
+
+\subsection{Security Requirements}
+\begin{itemize}
+    \item End-to-end encryption
+    \item HIPAA compliance
+    \item Secure authentication
+    \item Data privacy controls
+\end{itemize}
+
+\section{System Requirements}
+\subsection{Hardware Requirements}
+\begin{itemize}
+    \item Arduino UNO or compatible board
+    \item Health monitoring sensors
+    \item WiFi connectivity module
+    \item Server infrastructure
+\end{itemize}
+
+\subsection{Software Requirements}
+\begin{itemize}
+    \item Node.js v14 or later
+    \item Python 3.8 or later
+    \item PostgreSQL database
+    \item Modern web browser
+\end{itemize} 

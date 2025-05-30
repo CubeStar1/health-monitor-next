@@ -1,0 +1,73 @@
+\subsection{Detailed Non-Functional Requirements}
+Based on the implemented features and system architecture:
+
+\begin{enumerate}
+    \item \textbf{Performance Requirements}
+    \begin{itemize}
+        \item \textbf{Response Times}
+        \begin{itemize}
+            \item Page load time < 2 seconds
+            \item API response time < 500ms
+            \item Real-time sensor updates < 100ms
+            \item Document processing < 30 seconds
+        \end{itemize}
+
+        \item \textbf{Scalability}
+        \begin{itemize}
+            \item Support 1000+ concurrent users
+            \item Handle 100,000+ health records
+            \item Process 1M+ sensor readings daily
+            \item Store 10TB+ of health data
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Security Requirements}
+    \begin{lstlisting}[language=typescript]
+    // From app/api/documents/generate/route.ts
+    export async function POST(req: Request) {
+        // Authentication check
+        const supabase = createRouteHandlerClient({ cookies });
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session) {
+            return NextResponse.json(
+                { error: "Unauthorized" },
+                { status: 401 }
+            );
+        }
+        
+        // Secure document processing
+        try {
+            const { documentId } = await req.json();
+            // Process document with security measures
+        } catch (error) {
+            return NextResponse.json(
+                { error: "Processing failed" },
+                { status: 500 }
+            );
+        }
+    }
+    \end{lstlisting}
+    \begin{itemize}
+        \item End-to-end encryption
+        \item HIPAA compliance
+        \item Secure authentication
+        \item Data privacy controls
+    \end{itemize}
+
+    \item \textbf{Reliability Requirements}
+    \begin{itemize}
+        \item 99.9\% system uptime
+        \item Automatic data backup
+        \item Fault tolerance
+        \item Error recovery
+    \end{itemize}
+
+    \item \textbf{Usability Requirements}
+    \begin{itemize}
+        \item Responsive design
+        \item Intuitive navigation
+        \item Accessibility compliance
+        \item Mobile compatibility
+    \end{itemize}
+\end{enumerate} 

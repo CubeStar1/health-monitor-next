@@ -17,7 +17,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { LLMSelector } from '@/app/components/LLMSelector';
+import { LLMSelector } from '@/components/global/llm-selector';
 
 interface AppSidebarProps {
   user: User | null;

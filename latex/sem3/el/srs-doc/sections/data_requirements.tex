@@ -1,0 +1,48 @@
+\section{Data Requirements}
+\subsection{Database Structure}
+\begin{enumerate}
+    \item \textbf{Health Records}
+    \begin{lstlisting}[language=sql]
+    CREATE TABLE health_records (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        user_id UUID REFERENCES auth.users(id),
+        file_name TEXT NOT NULL,
+        display_name TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        object_id TEXT,
+        analysis JSONB,
+        embedding vector(1536)
+    );
+    \end{lstlisting}
+
+    \item \textbf{Sensor Data}
+    \begin{lstlisting}[language=sql]
+    CREATE TABLE sensor_readings (
+        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+        user_id UUID REFERENCES auth.users(id),
+        sensor_type TEXT NOT NULL,
+        reading_value DECIMAL NOT NULL,
+        timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        metadata JSONB
+    );
+    \end{lstlisting}
+\end{enumerate}
+
+\subsection{Data Processing Requirements}
+\begin{itemize}
+    \item \textbf{Document Processing}
+    \begin{itemize}
+        \item PDF text extraction
+        \item OCR for image-based documents
+        \item Medical terminology extraction
+        \item Metadata generation
+    \end{itemize}
+
+    \item \textbf{Sensor Data Processing}
+    \begin{itemize}
+        \item Real-time data validation
+        \item Anomaly detection
+        \item Data aggregation
+        \item Time-series analysis
+    \end{itemize}
+\end{itemize} 

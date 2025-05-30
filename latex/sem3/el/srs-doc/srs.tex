@@ -1,0 +1,80 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{minted}
+\usepackage{times}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+
+% Format headings
+\titleformat{\chapter}{\normalfont\fontsize{16}{19}\bfseries}{\thechapter}{1em}{}
+\titleformat{\section}{\normalfont\fontsize{14}{17}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\fontsize{12}{15}\bfseries}{\thesubsection}{1em}{}
+
+% Set normal text size to 12pt
+\renewcommand{\normalsize}{\fontsize{12}{14}\selectfont}
+
+\geometry{
+    a4paper,
+    margin=2.5cm
+}
+
+% Setup fancy header and footer
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[L]{HealthHub - SRS}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{RV College of Engineering}
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\begin{document}
+
+\tableofcontents
+\newpage
+
+% 1.0 Introduction
+\chapter{Introduction}
+\section{Purpose}
+\input{sections/purpose}
+\section{Intended Audience}
+\input{sections/intended_audience}
+\section{Intended Use}
+\input{sections/intended_use}
+\section{Product Scope}
+\input{sections/product_scope}
+
+% 2.0 Overall Description
+\chapter{Overall Description}
+\section{User Needs}
+\input{sections/user_needs}
+\section{Assumptions and Needs}
+\input{sections/assumptions_needs}
+
+% 3.0 Requirements Specification
+\chapter{Requirements Specification}
+\section{External Interface Requirements}
+\input{sections/external_interface}
+\section{Functional Requirements}
+\input{sections/functional_requirements}
+\section{Detailed Non-Functional Requirements}
+\input{sections/non_functional_requirements}
+\section{System Requirements}
+\input{sections/system_requirements}
+
+\end{document} 

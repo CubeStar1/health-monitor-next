@@ -1,0 +1,65 @@
+\section{Deployment Requirements}
+\subsection{Infrastructure Requirements}
+\begin{enumerate}
+    \item \textbf{Frontend Deployment}
+    \begin{itemize}
+        \item Vercel platform deployment
+        \item CDN configuration
+        \item Environment variables setup
+        \item Build optimization
+    \end{itemize}
+
+    \item \textbf{Backend Services}
+    \begin{itemize}
+        \item FastAPI deployment on Render
+        \item Database setup on Supabase
+        \item Redis cache configuration
+        \item Load balancer setup
+    \end{itemize}
+
+    \item \textbf{Monitoring Setup}
+    \begin{lstlisting}[language=yaml]
+    # docker-compose.yml
+    version: '3.8'
+    services:
+      prometheus:
+        image: prom/prometheus
+        ports:
+          - "9090:9090"
+        volumes:
+          - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+      grafana:
+        image: grafana/grafana
+        ports:
+          - "3000:3000"
+        depends_on:
+          - prometheus
+    \end{lstlisting}
+\end{enumerate}
+
+\subsection{CI/CD Pipeline}
+\begin{itemize}
+    \item \textbf{GitHub Actions Workflow}
+    \begin{lstlisting}[language=yaml]
+    # .github/workflows/main.yml
+    name: CI/CD Pipeline
+    on:
+      push:
+        branches: [ main ]
+    
+    jobs:
+      build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+          - name: Install dependencies
+            run: npm install
+          - name: Run tests
+            run: npm test
+          - name: Build
+            run: npm run build
+          - name: Deploy
+            run: npm run deploy
+    \end{lstlisting}
+\end{itemize} 

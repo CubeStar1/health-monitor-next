@@ -1,0 +1,51 @@
+\section{Sensor Integration Requirements}
+\subsection{Hardware Components}
+\begin{enumerate}
+    \item \textbf{Sensor Configuration}
+    \begin{lstlisting}[language=cpp]
+    // Arduino sensor setup
+    #include <Wire.h>
+    #include <MAX30105.h>
+    #include <ESP8266WiFi.h>
+
+    MAX30105 particleSensor;
+    
+    void setup() {
+        Wire.begin();
+        particleSensor.begin();
+        particleSensor.setup();
+        particleSensor.setPulseAmplitudeRed(0x0A);
+        particleSensor.setPulseAmplitudeGreen(0);
+    }
+    \end{lstlisting}
+
+    \item \textbf{Data Collection}
+    \begin{itemize}
+        \item Heart rate monitoring (MAX30102)
+        \item Temperature sensing (DS18B20)
+        \item SpO2 measurement
+        \item Motion detection
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Real-time Data Processing}
+\begin{lstlisting}[language=typescript]
+// Real-time data hooks
+export function useSensorData() {
+    const supabase = useSupabaseClient();
+    const [data, setData] = useState<SensorReading[]>([]);
+
+    useEffect(() => {
+        const channel = supabase
+            .channel('sensor_readings')
+            .on('INSERT', handleNewReading)
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, []);
+
+    return { data, isLoading };
+}
+\end{lstlisting} 

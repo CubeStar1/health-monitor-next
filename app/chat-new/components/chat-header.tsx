@@ -11,7 +11,7 @@ import { useSidebar } from '@/components/ui/sidebar';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Loader2, Plug } from 'lucide-react';
-import { ModeToggle } from '@/app/components/ModeToggle';
+import { ModeToggle } from '@/components/global/theme-switcher';
 
 function PureChatHeader({
   chatId,

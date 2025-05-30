@@ -1,6 +1,6 @@
 import { Suspense } from "react"
-import { DashboardContent } from './components/DashboardContent'
-import { DashboardSkeleton } from './components/DashboardSkeleton'
+import { DashboardContent } from './components/dashboard-content'
+import { DashboardSkeleton } from './components/dashboard-skeleton'
 import { 
   getHealthRecords, 
   getNutritionLogs, 
