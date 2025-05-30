@@ -120,7 +120,7 @@ export function CorrelationsTab() {
 
     const absValue = Math.abs(value);
     let strengthText = '';
-    let strengthBadgeVariant: "default" | "destructive" | "secondary" | "outline" = 'secondary';
+    const strengthBadgeVariant: "default" | "destructive" | "secondary" | "outline" = 'secondary';
 
     if (absValue >= 0.7) strengthText = 'Strong';
     else if (absValue >= 0.4) strengthText = 'Moderate';
@@ -283,7 +283,7 @@ export function CorrelationsTab() {
          <Alert>
           <Info className="h-4 w-4" />
           <AlertTitle>No Results Yet</AlertTitle>
-          <AlertDescription>Click "Run Correlation Analysis" to see results. Ensure you have selected at least two metrics and data is available for the chosen period.</AlertDescription>
+          <AlertDescription>Click &quot;Run Correlation Analysis&quot; to see results. Ensure you have selected at least two metrics and data is available for the chosen period.</AlertDescription>
         </Alert>
       )}
     </div>
