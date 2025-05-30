@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useToast } from '@/hooks/use-toast'
-import { Sidebar } from './components/sidebar'
+import { Sidebar } from './components/chat-sidebar'
 import { ChatInterface } from './components/chat-interface'
 import { MedicalSearchInterface } from './components/medical-search-interface'
 import { Message, Conversation } from './types'
