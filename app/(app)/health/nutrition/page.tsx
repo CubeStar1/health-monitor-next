@@ -1,187 +1,148 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useToast } from "@/hooks/use-toast"
-import { FoodSearch } from "./components/FoodSearch"
-import { TrackedFoodsList } from "./components/TrackedFoodsList"
-import { CalorieProgress } from "./components/CalorieProgress"
-import { Food } from "./types"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { ScrollArea } from "@/components/ui/scroll-area"
-import useUser from "@/hooks/use-user"
-import { NutritionCharts } from "./components/NutritionCharts"
+import { useState, useEffect } from "react"; // Added useEffect
+import { FoodSearch } from "./components/food-search";
+import { TrackedFoodsList } from "./components/tracked-foods-list";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { DailyNutritionView } from './components/daily-nutrition-view';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { WeeklyNutritionView } from "./components/weekly-nutrition-view";
+import { MonthlyNutritionView } from "./components/monthly-nutrition-view";
+import useNutritionData from "./hooks/useNutritionData";
 
-export default function NutritionTracker() {
-  const [trackedFoods, setTrackedFoods] = useState<Food[]>([])
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const { toast } = useToast()
-  const {data:user, error} = useUser()
+export default function NutritionTrackerPage() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  
+  // State for selected month and year for the monthly view
+  const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1); // 1-12
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
 
+  const {
+    trackedFoods,
+    historicalDailyData,
+    weeklyData,
+    monthlyData,
+    totalCaloriesToday,
+    isLoadingDaily,
+    isLoadingWeekly,
+    isLoadingMonthly,
+    isMutatingFoodLog,
+    errorDaily,
+    errorWeekly,
+    errorMonthly,
+    addFoodEntry,
+    deleteFoodEntry,
+    // fetchDailyData, // Potentially use if we want to change date ranges
+    // fetchWeeklyData, // Already called by default in useNutritionData
+    fetchMonthlyData, // Uncommented
+    refreshAllData // Assuming this fetches all data including initial monthly
+  } = useNutritionData();
+
+  const calorieGoal = 2000;
+
+  // Effect to fetch initial monthly data or when month/year changes via other means (if any)
+  // The primary trigger for re-fetch will be handleMonthChange
   useEffect(() => {
-    if (user) {
-      loadTrackedFoods();
+    if (fetchMonthlyData) {
+      fetchMonthlyData(selectedMonth, selectedYear);
     }
-  }, [user]);
+  }, [fetchMonthlyData, selectedMonth, selectedYear]); // Dependencies
 
-  const loadTrackedFoods = async () => {
-    try {
-      const today = new Date().toISOString().split('T')[0];
-      const userId = user?.id;
-      if (!userId) {
-        throw new Error("User not authenticated");
-      }
-
-      const response = await fetch(`/api/nutrition/daily?user_id=${userId}&date=${today}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data && data.consumed_foods) {
-          setTrackedFoods(data.consumed_foods);
-        }
-      } else if (response.status !== 404) {
-        throw new Error("Failed to load tracked foods");
-      }
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to load tracked foods. Please try again.',
-        variant: 'destructive',
-      });
-    }
+  // Handler for when month/year changes in MonthlyNutritionView
+  const handleMonthChange = (month: number, year: number) => {
+    setSelectedMonth(month);
+    setSelectedYear(year);
+    // fetchMonthlyData is already called by the useEffect above when selectedMonth/Year changes
+    // Or, if you prefer explicit call:
+    // if (fetchMonthlyData) {
+    //   fetchMonthlyData(month, year);
+    // }
   };
-
-  const addFood = async (foodName: string) => {
-    try {
-      const today = new Date().toISOString().split('T')[0];
-      const userId = user?.id;
-      if (!userId) {
-        throw new Error("User not authenticated");
-      }
-
-      const dailyResponse = await fetch(`/api/nutrition/daily?user_id=${userId}&date=${today}`);
-      let dailyData;
-
-      if (dailyResponse.status === 404 || !dailyResponse.ok) {
-        const createResponse = await fetch('/api/nutrition/daily', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user_id: userId, date: today, total_calories: 0 }),
-        });
-        if (!createResponse.ok) {
-          const errorData = await createResponse.json();
-          throw new Error(`Failed to create daily nutrition: ${errorData.error}`);
-        }
-        dailyData = await createResponse.json();
-      } else {
-        dailyData = await dailyResponse.json();
-      }
-
-
-      const response = await fetch('/api/nutrition', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: foodName, type: 'nutrients' }),
-      });
-      const data = await response.json();
-      if (data.foods && data.foods.length > 0) {
-        const food = data.foods[0];
-        const newFood: Food = {
-          id: '', 
-          daily_nutrition_id: dailyData.id,
-          food_name: food.food_name,
-          calories: Math.round(food.nf_calories),
-          protein: food.nf_protein,
-          carbs: food.nf_total_carbohydrate,
-          fat: food.nf_total_fat,
-          image_url: food.photo.highres,
-          consumed_at: new Date().toISOString(),
-        };
-        const consumedResponse = await fetch('/api/nutrition/consumed', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newFood),
-        });
-        const consumedData: Food[] = await consumedResponse.json();
-        setTrackedFoods(prevFoods => [...prevFoods, consumedData[0]]); 
-        toast({
-          title: 'Food Added',
-          description: `${food.food_name} has been added to your tracked foods.`,
-        });
-      }
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'An error occurred while adding the food.',
-        variant: 'destructive',
-      });
-    }
-  }
-
-  const deleteFood = async (foodId: string) => {
-    try {
-      const response = await fetch(`/api/nutrition/consumed/${foodId}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Failed to delete food: ${errorData.error}`);
-      }
-
-      setTrackedFoods(prevFoods => prevFoods.filter(food => food.id !== foodId));
-      toast({
-        title: 'Food Deleted',
-        description: 'The food has been removed from your tracked foods.',
-      });
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to delete food. Please try again.',
-        variant: 'destructive',
-      });
-    }
-  };
-
-  const totalCalories = trackedFoods.reduce((sum, food) => sum + food.calories, 0)
-  const calorieGoal = 2000 
 
   return (
-    <div className="flex h-[calc(100vh-120px)] overflow-hidden gap-4">
-      <div className={`${isSidebarOpen ? 'w-96' : 'w-0'} transition-all duration-300 overflow-hidden`}>
+    <div className="flex h-[calc(100vh-120px)] overflow-hidden gap-4 p-1">
+      {/* Sidebar */}
+      <div className={`${isSidebarOpen ? 'w-96 min-w-[24rem]' : 'w-0 min-w-0'} transition-all duration-300 overflow-hidden`}>
         <Card className="h-full flex flex-col">
           <CardHeader>
-            <CardTitle>Nutrition Tracker</CardTitle>
+            <CardTitle>Track Food</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow overflow-hidden flex flex-col">
+          <CardContent className="flex-grow overflow-hidden flex flex-col pt-0">
             <div className="mb-4">
-              <FoodSearch onAddFood={addFood} />
+              <FoodSearch onAddFood={addFoodEntry} />
             </div>
-            <ScrollArea className="flex-grow">
-              <TrackedFoodsList foods={trackedFoods} onDeleteFood={deleteFood} />
+            <Separator className="my-2" />
+            <p className="text-sm font-medium mb-2 text-muted-foreground px-1">Today&apos;s Log</p>
+            <ScrollArea className="flex-grow pr-3">
+              <TrackedFoodsList foods={trackedFoods} onDeleteFood={deleteFoodEntry} isLoading={isMutatingFoodLog} />
             </ScrollArea>
           </CardContent>
         </Card>
       </div>
 
-      <div className="flex-grow overflow-hidden">
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
         <Card className="h-full flex flex-col">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Nutrition Analytics</CardTitle>
-            <Button variant="ghost" size="icon" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-              {isSidebarOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-            </Button>
-          </CardHeader>
-          <ScrollArea className="flex-grow">
-          <CardContent className="">
-            <div className="mb-6">
-              <CalorieProgress totalCalories={totalCalories} calorieGoal={calorieGoal} />
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="icon" onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="mr-2">
+                {isSidebarOpen ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
+                <span className="sr-only">Toggle Sidebar</span>
+              </Button>
+              <CardTitle className="text-2xl font-semibold">Nutrition Analytics</CardTitle>
             </div>
-            <NutritionCharts foods={trackedFoods} />
+          </CardHeader>
+          <CardContent className="flex-1 p-4 flex flex-col overflow-hidden">
+            <Tabs defaultValue="daily" className="h-full flex flex-col">
+              <TabsList className="grid grid-cols-3 w-full">
+                <TabsTrigger value="daily">Daily</TabsTrigger>
+                <TabsTrigger value="weekly">Weekly</TabsTrigger>
+                <TabsTrigger value="monthly">Monthly</TabsTrigger>
+              </TabsList>
+              <TabsContent value="daily" className="flex-1 mt-2 overflow-hidden">
+                <ScrollArea className="h-full">
+                  <div className="pr-3">
+                    <DailyNutritionView 
+                      totalCaloriesToday={totalCaloriesToday}
+                      calorieGoal={calorieGoal}
+                      historicalDailyData={historicalDailyData}
+                      trackedFoods={trackedFoods}
+                      isLoading={isLoadingDaily} // Pass only initial load state
+                      // isMutating={isMutatingFoodLog} // We'll pass this if a sub-component needs it directly
+                      error={errorDaily}
+                    />
+                  </div>
+                </ScrollArea>
+              </TabsContent>
+              <TabsContent value="weekly" className="flex-1 mt-2 overflow-hidden">
+                <ScrollArea className="h-full">
+                  <div className="pr-3">
+                  <WeeklyNutritionView data={weeklyData} isLoading={isLoadingWeekly} error={errorWeekly} />
+                  </div>
+                </ScrollArea>
+              </TabsContent>
+              <TabsContent value="monthly" className="flex-1 mt-2 overflow-hidden">
+                <ScrollArea className="h-full">
+                  <div className="pr-3">
+                  <MonthlyNutritionView 
+                    data={monthlyData} 
+                    isLoading={isLoadingMonthly} 
+                    error={errorMonthly}
+                    onMonthChange={handleMonthChange}
+                    currentMonth={selectedMonth}
+                    currentYear={selectedYear}
+                  />
+                  </div>
+                </ScrollArea>
+              </TabsContent>
+            </Tabs>
           </CardContent>
-          </ScrollArea>
         </Card>
       </div>
     </div>
-  )
+  );
 }

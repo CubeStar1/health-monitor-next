@@ -8,7 +8,7 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Button } from "@/components/ui/button"
-import { PlusCircle } from "lucide-react"
+import { PlusCircle, Loader2 } from "lucide-react"
 
 interface FoodSearchProps {
   onAddFood: (foodName: string) => void
@@ -17,6 +17,7 @@ interface FoodSearchProps {
 export function FoodSearch({ onAddFood }: FoodSearchProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const [autocompleteResults, setAutocompleteResults] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -31,6 +32,7 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
   }, [searchQuery])
 
   const fetchAutocomplete = async (query: string) => {
+    setLoading(true);
     try {
       const response = await fetch('/api/nutrition', {
         method: 'POST',
@@ -43,6 +45,9 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
       setAutocompleteResults(data.common?.slice(0, 10) || []);
     } catch (error) {
       console.error('Error fetching autocomplete data:', error);
+      setAutocompleteResults([]); // Clear results on error
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -54,25 +59,45 @@ export function FoodSearch({ onAddFood }: FoodSearchProps) {
         onValueChange={setSearchQuery}
       />
       <CommandList>
-        <CommandEmpty>Start typing to search for foods...</CommandEmpty>
-        <CommandGroup heading="">
+        {loading && autocompleteResults.length === 0 && (
+          <div className="p-4 text-sm text-center text-muted-foreground flex items-center justify-center">
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Searching...
+          </div>
+        )}
+        {!loading && searchQuery && autocompleteResults.length === 0 && (
+          <CommandEmpty>No results found for &quot;{searchQuery}&quot;.</CommandEmpty>
+        )}
+        {!searchQuery && !loading && (
+            <CommandEmpty>Start typing to search for foods...</CommandEmpty>
+        )}
+        <CommandGroup heading={autocompleteResults.length > 0 ? "Suggestions" : ""}>
           {autocompleteResults.map((result, index) => (
             <CommandItem
               key={index}
-              value={result.food_name}
-              onSelect={() => setSearchQuery(result.food_name)}
+              value={result.food_name} // Important for Command behavior
+              onSelect={() => {
+                // onAddFood(result.food_name); // Optionally add directly on select, or let user click plus
+                // setSearchQuery(""); // Clear search after adding
+                // setAutocompleteResults([]);
+              }}
+              className="py-2 px-3 cursor-pointer hover:bg-accent focus:bg-accent"
             >
               <div className="flex items-center justify-between w-full">
-                <span>{result.food_name}</span>
+                <span className="text-sm">{result.food_name}</span>
                 <Button
-                  size="sm"
+                  size="icon"
                   variant="ghost"
+                  className="h-7 w-7 hover:bg-primary/10"
                   onClick={(e) => {
-                    e.stopPropagation();
+                    e.stopPropagation(); // Prevent CommandItem's onSelect
                     onAddFood(result.food_name);
+                    // setSearchQuery(""); // Clear search after adding
+                    // setAutocompleteResults([]);
                   }}
+                  aria-label={`Add ${result.food_name}`}
                 >
-                  <PlusCircle className="h-4 w-4" />
+                  <PlusCircle className="h-4 w-4 text-primary" />
                 </Button>
               </div>
             </CommandItem>
