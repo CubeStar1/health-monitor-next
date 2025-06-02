@@ -10,6 +10,7 @@ export interface Activity {
   max_heartrate?: number;
   average_heartrate?: number;
   average_speed: number;
+  average_watts: number;
   calories:number;
 }
 
