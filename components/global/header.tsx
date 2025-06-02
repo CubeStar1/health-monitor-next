@@ -19,7 +19,7 @@ import { headerConfig } from "@/lib/config/header"
 
 export function Header() {
   return (
-    <header className="supports-backdrop-blur:bg-background/90 sticky top-0 z-40 w-full bg-background/40 backdrop-blur-lg border-b border-border">
+    <header className="supports-backdrop-blur:bg-background/90 sticky top-0 z-40 w-full bg-background/40 backdrop-blur-lg">
       <div className="flex h-16 items-center justify-between px-4 max-w-7xl mx-auto">        <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
             <Image src={headerConfig.brand.icon} alt="Health Monitor" width={32} height={32} />

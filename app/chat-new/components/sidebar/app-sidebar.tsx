@@ -18,6 +18,8 @@ import {
 } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { LLMSelector } from '@/components/global/llm-selector';
+import Image from 'next/image';
+import { NavProfile } from '@/components/navigation/nav-profile';
 
 interface AppSidebarProps {
   user: User | null;
@@ -32,17 +34,10 @@ export function AppSidebar({ user }: AppSidebarProps) {
       <SidebarHeader>
         <SidebarMenu>
           <div className="flex flex-row justify-between items-center px-4 py-2">
-            <Link
-              href="/"
-              onClick={() => {
-                setOpenMobile(false);
-              }}
-              className="flex flex-row gap-3 items-center"
-            >
-              <span className="text-lg font-semibold px-2 hover:bg-muted rounded-md cursor-pointer">
-                Health Monitor
-              </span>
-            </Link>
+          <div className="py-4 border-b flex items-center gap-2">
+            <Image src="/idea-lab-round.png" alt="Logo" width={40} height={40} />
+            <h1 className="text-sm font-semibold">Health Monitor</h1>
+          </div>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
@@ -72,7 +67,7 @@ export function AppSidebar({ user }: AppSidebarProps) {
       </SidebarContent>
 
       <SidebarFooter>
-        {user && <SidebarUserNav user={user} />}
+        <NavProfile user={user} />
       </SidebarFooter>
     </Sidebar>
   );

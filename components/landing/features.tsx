@@ -10,13 +10,13 @@ const features = [
   {
     title: "RAG Pipeline using Langchain",
     description: "Our health assistant is powered by a RAG pipeline using Langchain to generate responses to your questions",
-    image: "/landing/hm-chat-light.png",
+    image: "/landing/hm-rag-chat-ps.png",
     url: "/rag"
   },
   {
     title: "Real-Time Health Monitoring",
     description: "Monitor Heart Rate, SpO2 and ECG in real-time",
-    image: "/landing/hm-graphs.png",
+    image: "/landing/hm-monitor-ps.png",
     url: "/monitor"
   },
   {
@@ -28,13 +28,13 @@ const features = [
   {
     title: "Health Dashboard",
     description: "Comprehensive overview of your health metrics in one place",
-    image: "/landing/hm-dashboard.png",
+    image: "/landing/hm-dashboard-ps.png",
     url: "/dashboard"
   },
   {
     title: "Nutrition Monitoring",
     description: "Track your diet, calories, and nutritional intake with detailed insights",
-    image: "/landing/hm-nutrition.png",
+    image: "/landing/hm-nutrition-ps.png",
     url: "/nutrition"
   },
   {
@@ -53,6 +53,12 @@ const features = [
     title: "Health Reports",
     description: "Generate detailed health reports and share them with your healthcare providers",
     image: "/landing/hm-report.png",
+    url: "/reports"
+  },
+  {
+    title: "Voice and Video Assistant",
+    description: "Interact with our AI assistant via text, voice (Gemini Live), or video (HeyGen AI)",
+    image: "/landing/hm-video-landing.png",
     url: "/reports"
   }
 ];
