@@ -1,4 +1,3 @@
-// c:\Users\avina\Projects\RVCE\2024\health-monitor\app\(app)\health\activities\page.tsx
 "use client"
 
 import { useState, useEffect } from 'react'

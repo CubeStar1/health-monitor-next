@@ -1,0 +1,72 @@
+\section{System Architecture and Design}
+
+\subsection{System Architecture Overview}
+
+The system architecture comprises a modular IoT-based health monitoring framework integrated with a cloud backend and an AI-powered frontend interface. The architecture includes microcontrollers, biomedical sensors, communication modules, a database, backend APIs, and a real-time frontend dashboard. Sensor data is transmitted via Wi-Fi to a cloud database where it is processed, visualized, and queried using natural language.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{images/feature_implementation.png}
+\caption{System Architecture Diagram}
+\end{figure}
+
+\subsection{Hardware Components and Configuration}
+
+\textbf{Components and Sensors Used:}
+
+\begin{itemize}
+    \item \textbf{Microcontroller:}
+    \begin{itemize}
+        \item \textbf{Arduino UNO R3} – Acts as the core controller for sensor interfacing and data collection.
+    \end{itemize}
+
+    \item \textbf{Wi-Fi Module:}
+    \begin{itemize}
+        \item \textbf{ESP8266} – Ensures wireless connectivity and enables real-time data transfer to the backend.
+    \end{itemize}
+
+    \item \textbf{Biomedical Sensors:}
+    \begin{itemize}
+        \item \textbf{MAX30102} – Captures \textbf{SpO2} and \textbf{heart rate} data using IR and red LED photodetectors.
+        \item \textbf{AD8232} – Acquires real-time \textbf{ECG signals}, enabling heart activity tracking through electrode pads.
+        \item \textbf{SEN-11574} – Detects \textbf{heartbeats} through finger contact with analog output.
+        \item \textbf{LM35} – Measures \textbf{body temperature} with high accuracy via linear voltage output.
+    \end{itemize}
+
+    \item \textbf{Display Module:}
+    \begin{itemize}
+        \item \textbf{OLED Display (e.g., SSD1306)} – Visual feedback module for showing sensor values in real-time.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{images/sensor_integration.png}
+\caption{IoT Sensor Setup and Configuration}
+\end{figure}
+
+\subsection{Technology Stack}
+
+\textbf{Tech Stack Overview:}
+
+\begin{itemize}
+    \item \textbf{Hardware:} Arduino UNO R3, ESP8266, MAX30102, AD8232, LM35, SEN-11574, OLED Display
+    \item \textbf{Firmware:} Arduino IDE (C++), sensor-specific libraries
+    \item \textbf{Backend:} FastAPI, PostgreSQL (Supabase), MQTT/HTTP protocol
+    \item \textbf{Frontend:} Next.js, TailwindCSS, shadcn/ui, Chart.js or Recharts
+    \item \textbf{AI/NLP:} OpenAI GPT-4, LangChain, LangGraph, Cohere (for embeddings)
+    \item \textbf{Storage \& Auth:} Supabase (Auth, RLS, pgvector for embeddings, file storage)
+\end{itemize}
+
+\subsection{Circuit Diagrams and Pin Configurations}
+% Please add relevant circuit diagrams and pin configuration details here.
+% Example: \begin{figure}[h!]
+% \centering
+% \includegraphics[width=0.8\textwidth]{images/circuit_diagram.png}
+% \caption{Overall Circuit Diagram}
+% \end{figure}
+
+% Pin connections for Arduino UNO R3:
+% - MAX30102: SDA -> A4, SCL -> A5
+% - AD8232: OUTPUT -> A0, LO+ -> D10, LO- -> D11
+% - ... and so on for other sensors and modules.

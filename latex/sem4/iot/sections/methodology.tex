@@ -1,47 +1,35 @@
-\section{System Architecture}
+\section{METHODOLOGY}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=\textwidth]{images/feature_implementation.png}
-\caption{System Architecture Diagram}
-\end{figure}
-
-\section{Implementation Plan}
+\subsection{Implementation Tasks}
 
 \begin{enumerate}
-    \item Frontend Development
-    \begin{itemize}
-        \item Design responsive web interface using Next.js
-        \item Create real-time health data dashboard
-        \item Implement user authentication system
-    \end{itemize}
 
-    \item Backend Development
-    \begin{itemize}
-        \item Set up FastAPI server for data processing
-        \item Configure database for health data storage
-        \item Implement API endpoints for data retrieval
-    \end{itemize}
+\item \textbf{Frontend Development}
+\begin{itemize}
+    \item Design the user interface using \textbf{Next.js} with \textbf{TailwindCSS} and \textbf{shadcn/ui} for a responsive, modular experience.
+    \item Build a real-time dashboard to visualize health metrics such as SpO2, heart rate, ECG, and temperature.
+    \item Integrate Supabase Auth to enable secure user login and session handling.
+\end{itemize}
 
-    \item IoT Sensor Integration
-    \begin{itemize}
-        \item Configure Arduino-based health sensors
-        \item Implement data collection for vital signs
-        \item Establish real-time data transmission pipeline
-    \end{itemize}
+\item \textbf{Backend Development}
+\begin{itemize}
+    \item Set up a \textbf{FastAPI} server to handle incoming sensor data and expose RESTful endpoints.
+    \item Use a \textbf{PostgreSQL} database (hosted via Supabase) to store and manage health data securely.
+    \item Develop APIs for data submission, retrieval, and query handling.
+\end{itemize}
 
-    \item AI Integration
-    \begin{itemize}
-        \item Implement conversational AI interface
-        \item Develop health data query system
-        \item Create automated health insights generation
-    \end{itemize}
+\item \textbf{IoT Sensor Integration}
+\begin{itemize}
+    \item Use an \textbf{Arduino UNO R3} to interface with all biomedical sensors and read analog/digital inputs.
+    \item Employ an \textbf{ESP8266 Wi-Fi module} to transmit data to the cloud via HTTP or MQTT.
+    \item Configure periodic data sampling and preprocessing before cloud transmission.
+\end{itemize}
+
+\item \textbf{AI Integration}
+\begin{itemize}
+    \item Integrate a conversational AI interface using \textbf{LangChain} and \textbf{GPT-4/GPT-4o}.
+    \item Allow users to query their health records through natural language using a Text-to-SQL pipeline.
+    \item Provide automated health summaries and anomaly detection powered by AI.
+\end{itemize}
+
 \end{enumerate}
-
-\section{Hardware Setup}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=\textwidth]{images/sensor_integration.png}
-\caption{IoT Sensor Setup and Configuration}
-\end{figure}

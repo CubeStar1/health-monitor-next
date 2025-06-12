@@ -1,6 +1,7 @@
 \documentclass[12pt]{report}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}
+\usepackage{graphicx}     % For including images
+\usepackage{subcaption}   % For subfigure environment
 \usepackage{hyperref}
 \usepackage{geometry}
 \usepackage{float}
@@ -9,17 +10,20 @@
 \usepackage{fancyhdr}
 \usepackage{array}
 \usepackage{enumitem}
-\usepackage{tcolorbox}
+\usepackage{listings}   % For code listings
+\usepackage{tcolorbox}  % For colored boxes
+\tcbuselibrary{listings} % Integrate listings with tcolorbox
+\usepackage{booktabs}   % For professional quality tables
+\usepackage{tabularx}   % For tables with adjustable-width columns
+\usepackage{longtable}  % For tables that span multiple pages
 \usepackage{times}
 
 % Page geometry
 \geometry{
     a4paper,
-    left=1.5in,
+    left=1in,
     right=1in,
-    top=1in,
     bottom=1in,
-    includehead,
     includefoot
 }
 
@@ -30,8 +34,10 @@
 \titleformat{\chapter}[display]
   {\normalfont\fontsize{18}{22}\bfseries}
   {}
-  {0pt}
+  {-30pt}  % <-- Reduces the space BEFORE the title
   {\centering\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{-40pt}{20pt}  % <-- {left}{before-sep}{after-sep}
+
 
 \titleformat{\section}
   {\normalfont\fontsize{16}{19}\bfseries}{\thesection}{1em}{}
@@ -52,7 +58,6 @@
 % Ensure chapter pages use plain style
 \renewcommand{\chapterpagestyle}{plain}
 
-% Title page formatting
 \renewcommand{\maketitle}{
     \begin{titlepage}
         \centering
@@ -82,16 +87,16 @@
         {\large\bfseries Submitted by\par}
         \vspace{0.3cm}
         \begin{tabular}{ll}
-            Avinash Anish  \\
-            \hspace{0.35cm}Disha A  \\
-            Kotra Sasank  \\
+            Avinash Anish 1RV23IS145  \\ 
+            \hspace{0.35cm} Disha A 1RV23IS402 \\
+            Kotra Sasank 1RV23IS062 \\
         \end{tabular}
         \vspace{1cm}
         
         % Guide
         {\large\bfseries Under the guidance of\par}
         \vspace{0.2cm}
-        Dr. Sushmitha N \\
+        Prof. Sushmitha N \\
         Assistant Professor\\
         Dept. of ISE\\
         RV College of Engineering®\par
@@ -110,21 +115,35 @@
 \begin{document}
 
 \maketitle
-
 \newpage
 
-% Abstract
+% Abstract (kept as per original, can be moved or removed by user)
 \input{sections/abstract.tex}
+\newpage
 
-% Main content
-\chapter{Existing Solutions}
-\input{sections/existing_systems.tex}  
+\tableofcontents
+\newpage
 
-\chapter{Objectives}
+\chapter{Introduction to IoT-Based Vital Sign Monitoring System with Conversational Health Data Access}
+\input{sections/introduction.tex}
+
+\chapter{Existing System Study and its Outcome with Project Objectives}
+\input{sections/existing_systems.tex}
 \input{sections/objectives.tex}
 
-\chapter{Design}
+\chapter{Project Architecture \& Design}
+\input{sections/architecture_design.tex}
+
+\chapter{Methodology for IoT-Based Vital Sign Monitoring System with Conversational Health Data Access}
 \input{sections/methodology.tex}
+
+\chapter{Results of IoT-Based Vital Sign Monitoring System with Conversational Health Data Access}
+\input{sections/results.tex}
+
+\begin{appendices}
+\chapter{Code and Acronyms}
+\input{sections/appendix_content.tex}
+\end{appendices}
 
 \input{sections/references.tex}
 
