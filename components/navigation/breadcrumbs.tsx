@@ -1,5 +1,6 @@
 "use client"
 
+import { CommandPalette } from "@/components/global/command-palette"
 import { ModeToggle } from "@/components/global/theme-switcher"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Separator } from "@/components/ui/separator"
@@ -120,6 +121,7 @@ export function Breadcrumbs({
         </Breadcrumb>
         <div className="ml-auto flex items-center gap-4">
           {action}
+          <CommandPalette />
           <ModeToggle />
         </div>
       </div>
