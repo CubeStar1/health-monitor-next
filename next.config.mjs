@@ -3,28 +3,16 @@ const nextConfig = {
     images: {
         remotePatterns: [
             {
-                hostname: 'nix-tag-images.s3.amazonaws.com',
+                hostname: '*',
                 protocol: 'https',
             },
-            {
-                hostname: 'wkgtxptenzjenicqfbpg.supabase.co',
-                protocol: 'https',
-            },
-            {
-                hostname: 'lh3.googleusercontent.com',
-                protocol: 'https'
-            },
-            {
-                hostname: 'avatars.githubusercontent.com',
-                protocol: 'https'
-            },
-            {
-                hostname: 'avatar.vercel.sh',
-                protocol: 'https'
-            }
-
         ],
     },
+    experimental: {
+        serverActions: {
+          bodySizeLimit: '5mb',
+        },
+      },
 };
 
 export default nextConfig;
