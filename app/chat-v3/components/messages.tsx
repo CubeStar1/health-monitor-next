@@ -26,7 +26,7 @@ function PureMessages({
         <div key={message.id || index}>
           {/* Render tool invocations if they exist */}
           {message.toolInvocations && message.toolInvocations.map((toolCall) => (
-            <div key={toolCall.toolCallId} className="my-4">
+            <div key={toolCall.toolCallId} className="">
               <ToolResultDisplay toolCall={toolCall} />
             </div>
           ))}
