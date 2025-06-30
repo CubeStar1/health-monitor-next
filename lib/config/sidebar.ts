@@ -18,7 +18,7 @@ const sidebarConfig: SidebarConfig = {
         },
         {
           title: "Chat",
-          href: "/chat",
+          href: "/chat-v3",
           icon: Send
         },
         {

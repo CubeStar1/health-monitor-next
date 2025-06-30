@@ -11,7 +11,7 @@ export const headerConfig: HeaderConfig = {
       label: "Home" 
     },
     { 
-      href: "/chat", 
+      href: "/chat-v3", 
       label: "Chat" 
     },
     { 

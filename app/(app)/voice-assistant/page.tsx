@@ -28,6 +28,8 @@ declare global {
 const voices = ["Puck", "Charon", "Kore", "Fenrir", "Aoede"];
 
 export default function GeminiVoiceChat() {
+
+  const ws_url = process.env.NEXT_PUBLIC_WS_URL!;
   const { data: medicalSummary } = useMedicalSummary();
   const [isStreaming, setIsStreaming] = useState(false);
   const [text, setText] = useState('');
@@ -35,7 +37,7 @@ export default function GeminiVoiceChat() {
     systemPrompt: "You are a friendly Gemini 2.0 model. Respond verbally in a casual, helpful tone.",
     voice: "Puck",
     googleSearch: true,
-    allowInterruptions: false
+    allowInterruptions: false,
   });
   const [isConnected, setIsConnected] = useState(false);
   const [chatMode, setChatMode] = useState<'audio' | 'video' | null>(null);
@@ -63,7 +65,7 @@ Please use this context to provide personalized and relevant medical advice. Kee
 
   const startStream = async (mode: 'audio' | 'video') => {
     setChatMode(mode);
-    wsRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/${clientId.current}`);
+    wsRef.current = new WebSocket(`${ws_url}/${clientId.current}`);
     
     wsRef.current.onopen = async () => {
       if (!wsRef.current) return;

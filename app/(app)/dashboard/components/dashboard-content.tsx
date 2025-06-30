@@ -4,6 +4,7 @@ import { CalendarDays } from "lucide-react"
 import { DashboardTabs } from './sub-components/dashboard-tabs'
 import { User } from '@supabase/supabase-js'
 import { Food } from '../../health/nutrition/types'
+import AlertConfigurationPopover from './sub-components/alert-configuration-popover'
 
 interface DashboardContentProps {
   user: User
@@ -35,6 +36,7 @@ export function DashboardContent({ user, initialData }: DashboardContentProps) {
             <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium">
               Download
             </button>
+            <AlertConfigurationPopover />
           </div>
         </div>
 
