@@ -40,6 +40,27 @@ create table public.sensor_data (
   heat_index_f double precision null,
   constraint sensor_data_pkey primary key (id)
 ) TABLESPACE pg_default;
+ 
+ create table public.strava_activities (
+  id bigint not null,
+  user_id uuid not null,
+  name text not null,
+  type text not null,
+  distance double precision not null,
+  moving_time integer not null,
+  elapsed_time integer not null,
+  total_elevation_gain double precision not null,
+  start_date timestamp with time zone not null,
+  strava_activity_id bigint not null,
+  created_at timestamp with time zone null default CURRENT_TIMESTAMP,
+  updated_at timestamp with time zone null default CURRENT_TIMESTAMP,
+  max_heartrate integer null,
+  average_heartrate double precision null,
+  average_speed double precision null,
+  calories integer null,
+  constraint strava_activities_pkey primary key (id),
+  constraint strava_activities_user_id_fkey foreign KEY (user_id) references auth.users (id) on delete CASCADE
+) TABLESPACE pg_default;
 `;
 
 export async function getTableSchema(): Promise<string> {
