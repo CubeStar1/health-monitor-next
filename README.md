@@ -8,6 +8,7 @@ This project is a health data management and AI-assisted analysis platform. It c
 ![HealthHub Assistant](./public/landing/hm-landing-health-assistant-3.png)
 
 ### AI-Powered Health Assistant
+
 ![Health Assistant Interface](./public/hm-chat-landing.png)
 Health assistant powered by a RAG pipeline using Langchain.
 
@@ -15,20 +16,24 @@ Health assistant powered by a RAG pipeline using Langchain.
 Video assistant powered by HeyGen.
 
 ### Real-Time Health Dashboard
+
 ![Health Dashboard](./public/landing/hm-dashboard.png)
 Overview of your health metrics, vitals, and analytics in one unified interface.
 
 ### Medical Records & Analysis
+
 ![Medical Records](./public/landing/hm-record-analysis.png)
 ![Records Transcription](./public/landing/hm-record-transcript.png)
 Secure storage and vectorization of your medical records with automatic transcription.
 
 ### Health Monitoring & Activities
+
 ![Real-time Monitoring](./public/landing/hm-graphs.png)
 ![Activity Tracking](./public/landing/hm-activities.png)
 Track vital signs in real-time and monitor your daily activities and fitness progress.
 
 ### Nutrition & Health Reports
+
 ![Nutrition Tracking](./public/landing/hm-nutrition.png)
 ![Health Reports](./public/landing/hm-report.png)
 Monitor your nutrition and generate comprehensive health reports for healthcare providers.
@@ -36,15 +41,18 @@ Monitor your nutrition and generate comprehensive health reports for healthcare 
 ## Features
 
 ### Real-time Health Data Integration & Monitoring
+
 - Integration with Arduino sensors for vital signs monitoring and live dashboard updates
 - Structured data collection and analysis for health trends via ESP8266 and Supabase
 
 ### AI-Powered Health Assistant
+
 - Multi-modal interaction with voice, text, and video interfaces using Gemini 2.0 and HeyGen AI
 - RAG pipeline powered by Langchain for personalized health insights
 - Medical knowledge search and verification using Tavily API
 
 ### Health Records Management
+
 - Secure storage and automatic transcription of medical records
 - Document vectorization with Cohere embeddings for semantic search
 - Health reports generation combining structured sensor data and unstructured medical records
@@ -60,6 +68,7 @@ Monitor your nutrition and generate comprehensive health reports for healthcare 
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v14 or later)
 - Python (v3.8 or later)
 - Supabase account
@@ -73,23 +82,27 @@ Monitor your nutrition and generate comprehensive health reports for healthcare 
 ### Installation
 
 1. Clone the frontend repository:
+
    ```bash
    git clone https://github.com/CubeStar1/health-monitor-next.git
    cd health-monitor-next
    ```
 
 2. Install frontend dependencies:
+
    ```bash
    npm install
    ```
 
 3. Clone the Python backend repository:
+
    ```bash
    git clone https://github.com/CubeStar1/health-monitor-api.git
    cd healthhub-backend
    ```
 
 4. Set up the Python backend:
+
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
@@ -141,8 +154,8 @@ Monitor your nutrition and generate comprehensive health reports for healthcare 
 
    ```
 
-
 6. Start the development servers:
+
    ```bash
    # In the frontend directory
    cd health-monitor-next
@@ -152,7 +165,6 @@ Monitor your nutrition and generate comprehensive health reports for healthcare 
    cd path/to/health-monitor-api
    uvicorn main:app --reload
    ```
-
 
 ## Medical Records Processing
 
@@ -165,3 +177,11 @@ When a medical record is uploaded:
 
 This process allows for efficient semantic search and retrieval of relevant information during chat interactions
 
+> [!IMPORTANT]
+> Certain components of this project are not publicly included in this repository to protect proprietary software architecture. These include:
+>
+> - **Supabase Database Migrations & Schema** (the `lib/supabase/migrations`)
+> - **Proprietary AI Prompt Engineering & Reasoning** (the `lib/ai/prompts` and `lib/ai/tools` directories)
+> - **Real-time Search Integration Logic** (the `lib/tavily` and `lib/tools` directories)
+>
+> If you’re interested in accessing these for academic, research, or collaboration purposes, please feel free to contact me at **avinash.anish05@gmail.com**.
